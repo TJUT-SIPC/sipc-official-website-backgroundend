@@ -22,8 +22,8 @@
     			"id":1,
     			"description":"一起去玩耍",		 //项目描述
     			“image”:{
-    				compress:,					//缩略图url
-    				raw:,						//原图url
+    				“compress”:,					//缩略图url
+    				“raw”:,						//原图url
     			}
     		}
     	],
