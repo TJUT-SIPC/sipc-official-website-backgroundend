@@ -153,5 +153,17 @@
     "msg": "提交成功",
     "data": null
 }
+
+{
+	"code":1,
+	"msg":"人名不能为空",
+	"data":null
+}
+
+{
+	"code":2,
+	"msg":"寄语不能为空",
+	"data":null
+}
 ~~~
 
