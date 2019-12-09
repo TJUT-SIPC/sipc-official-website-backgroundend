@@ -17,23 +17,23 @@
     "code": 0,
     "msg": "success",
     "data": {
-    		"project_list":[
-    				{
-    						"id":1,
-    						"description":"一起去玩耍",		 //项目描述
-    						image:{
-    								compress:,								//缩略图url
-    								raw:,											//原图url
-    						}
-    				}
-    		],
-    		"award_list":[
-    				{
-    						"id":1,
-    						"name":"蓝桥杯大赛一等奖",	//获奖名称
-    						"time":"2019-03-06"			 //获奖时间
-    				}
-    		],
+    	"project_list":[
+    		{
+    			"id":1,
+    			"description":"一起去玩耍",		 //项目描述
+    			“image”:{
+    				compress:,					//缩略图url
+    				raw:,						//原图url
+    			}
+    		}
+    	],
+    	"award_list":[
+    		{
+    			"id":1,
+    			"name":"蓝桥杯大赛一等奖",       	//获奖名称
+    			"time":"2019-03-06"			    //获奖时间
+    		}
+    	],
     }
 }
 ~~~
@@ -56,15 +56,15 @@
 
 ~~~ 
 {
-		"code": 0,
+	"code": 0,
     "msg": "提交成功",
     "data": null
 }
 
 {
-		"code":1,
-		"msg":"邮箱格式错误",
-		"data":null
+	"code":1,
+	"msg":"邮箱格式错误",
+	"data":null
 }
 ~~~
 
@@ -87,17 +87,17 @@
     "code": 0,
     "msg": "success",
     "data": {
-    		“dynamic_list”:[											//分页，每页返回五条动态
-    				{
-    						"id":1,
-    						"picture":,
-    						"header":"今天是个好日子",				//动态标题
-    						"text":"好日子的原因",					//动态内容
-    						"time":“2019-12-12”,					//动态发布时间
-    						"editor":"李同学",							//动态发布作者
-    						"catagory":1									//动态分类（待定）
-    				}
-    		]
+    	“dynamic_list”:[					//分页，每页返回五条动态
+    		{
+    			"id":1,
+    			"picture":,
+    			"header":"今天是个好日子",	//动态标题
+    			"text":"好日子的原因",		//动态内容
+    			"time":“2019-12-12”,		//动态发布时间
+    			"editor":"李同学",			//动态发布作者
+    			"catagory":1				//动态分类（待定）
+    		}
+    	]
     }
 }
 ~~~
@@ -121,13 +121,13 @@
     "code": 0,
     "msg": "success",
     "data": {
-    		“wishes_list”:[							//随机返回15条寄语
-    				{
-    						"id":1,
-    						"name":"15届的同学",
-    						"word":"祝115越来越好"
-    				}
-    		]
+    	“wishes_list”:[			//随机返回15条寄语
+    		{
+    			"id":1,
+    			"name":"15届的同学",
+    			"word":"祝115越来越好"
+    		}
+    	]
     }
 }
 ~~~
@@ -149,7 +149,7 @@
 
 ~~~ 
 {
-		"code": 0,
+	"code": 0,
     "msg": "提交成功",
     "data": null
 }
