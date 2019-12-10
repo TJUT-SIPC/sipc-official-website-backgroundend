@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,9 @@ public class HomePageController {
 
     @GetMapping("/")
     public ResultVO list(){
+
+        //日期格式化
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/M");
 
         //1.查询所有项目
         List<Projects> projectList = projectService.findAll(0,500);
@@ -67,7 +72,7 @@ public class HomePageController {
             AwardListInfoVO awardListInfoVO = new AwardListInfoVO();
             awardListInfoVO.setAwardId(award.getAwardId());
             awardListInfoVO.setAwardName(award.getAwardName());
-            awardListInfoVO.setAwardTime(award.getAwardTime().toString());
+            awardListInfoVO.setAwardTime(sdf.format(award.getAwardTime()));
 
             awardListInfoVOList.add(awardListInfoVO);
         }
