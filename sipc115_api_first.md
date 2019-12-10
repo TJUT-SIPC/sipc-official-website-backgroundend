@@ -172,7 +172,7 @@
         "data": null
     }
 		{
-        "code": 0,
+        "code": 2,
         "msg": "寄语不能为空",
         "data": null
     }
