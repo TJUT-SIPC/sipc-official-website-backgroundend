@@ -7,6 +7,7 @@ import lombok.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Entity
 @Data
@@ -22,6 +23,7 @@ public class Wishes {
     private String wishWord;
     /**寄语的审核状态*/
     private Integer wishStatus;
-
+    /**寄语的提交时间*/
+    private Date wishTime;
 
 }
