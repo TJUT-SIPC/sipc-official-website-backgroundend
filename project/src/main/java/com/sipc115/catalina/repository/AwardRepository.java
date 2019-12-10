@@ -20,6 +20,7 @@ public interface AwardRepository extends JpaRepository<Awards, Integer> {
     Awards findOne(Integer integer);
 
     /**分页查询奖项*/
+    @Override
     Page<Awards> findAll(Pageable pageable);
 
     /**通过id修改一个奖项*/

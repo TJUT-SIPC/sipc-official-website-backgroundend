@@ -29,7 +29,7 @@ public class AwardServiceImpl implements AwardService {
 
     /**
      * 2.分页查询所有奖项
-     * @param pageNum 奖项
+     * @param pageNum 页数
      * @param pageSize 一页显示多少条
      * @return 查询到的奖项集合
      */
