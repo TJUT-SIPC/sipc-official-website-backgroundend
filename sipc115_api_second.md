@@ -20,6 +20,7 @@
 		"code":0,
 		"msg":"success",
 		"data":{
+				“total”:15,					//总条数
 				"users_list":[
 						{
 							"id":10000,							//用户id
@@ -34,8 +35,6 @@
 							"status":0,									//权限，0为普通用户，1管理员，2超级管理员
 							"remark":"用户备注",
 							"head_image":"用户头像url",
-							“current_page”:25,					//当前页数
-							"total_page":50,				//总页数
 						}
 				]
 		}
@@ -218,6 +217,7 @@
 		"code":0,
 		"msg":"success",
 		"data":{
+				“total”:15,				//总条数
 				"projects_list":[
 						{
 							"id":1,										//项目id
@@ -226,9 +226,7 @@
 							“image”:{
 									"compress":,					//缩略图url
 									"raw":,								//原图url
-							},
-							“current_page”:25,					//当前页数
-							"total_page":50,				//总页数
+							}
 						}
 				]
 		}
@@ -354,14 +352,13 @@
 		"code":0,
 		"msg":"success",
 		"data":{
+				"total":15,					//总条数
 				"wishes_list":[
 						{
 							"id":1,					//寄语id
 							"name":"张三",	 //姓名
 							"word":"祝福",	 //寄语内容
 							"status":1,			//寄语状态，0审核不通过，1待审核，2审核通过待发布，3已发布
-							“current_page”:25,					//当前页数
-							"total_page":50,				//总页数
 						}
 				]
 		}
@@ -434,6 +431,7 @@
 		"code":0,
 		"msg":"success",
 		"data":{
+				“total”:15,			//总条数
 				"dynamics_list":[
 						{
 							"id":1,							//动态编号
@@ -443,8 +441,6 @@
 							"time":"动态发布时间",
 							"editor":"发布者",
 							"catagory":1,				//分类编号待定
-							“current_page”:25,					//当前页数
-							"total_page":50,				//总页数
 						}
 				]
 		}
