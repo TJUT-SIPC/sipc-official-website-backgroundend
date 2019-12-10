@@ -14,13 +14,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/")
-public class SendMessageController {
+public class MessageController {
 
     @Autowired
     private MessageBoardService messageBoardService;
 
     @PostMapping("/sendMessage")
-    public List<ResultVO> list(String email, String nickname, String advice){
+    public List<ResultVO> sendMessage(String email, String nickname, String advice){
 
         List<ResultVO> resultVOList = new ArrayList<>();
 

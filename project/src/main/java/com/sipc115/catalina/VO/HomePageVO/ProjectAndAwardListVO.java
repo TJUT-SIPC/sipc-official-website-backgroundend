@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * 项目集合视图
+ * 项目与奖项集合视图
  */
 @Data
 public class ProjectAndAwardListVO {
