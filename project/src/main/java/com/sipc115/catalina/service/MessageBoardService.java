@@ -14,6 +14,9 @@ public interface MessageBoardService {
     /**分页查询留言*/
     List<MessageBoard> findAll(Integer pageNum, Integer pageSize);
 
+    /**添加留言*/
+    MessageBoard addMessage(MessageBoard message);
+
     /**删除留言*/
     void delMessage(Integer messageBoardId);
 

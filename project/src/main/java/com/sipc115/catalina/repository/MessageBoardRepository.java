@@ -17,6 +17,10 @@ public interface MessageBoardRepository extends JpaRepository<MessageBoard, Inte
     @Override
     Page<MessageBoard> findAll(Pageable pageable);
 
+    /**添加一条留言*/
+    @Override
+    MessageBoard save(MessageBoard message);
+
     /**删除一条留言*/
     @Override
     void delete(Integer integer);

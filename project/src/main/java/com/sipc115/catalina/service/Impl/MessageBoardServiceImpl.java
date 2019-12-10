@@ -40,8 +40,13 @@ public class MessageBoardServiceImpl implements MessageBoardService {
         return page.getContent();
     }
 
+    @Override
+    public MessageBoard addMessage(MessageBoard message) {
+        return messageBoardRepository.save(message);
+    }
+
     /**
-     * 3.删除一条留言
+     * 4.删除一条留言
      * @param messageBoardId 留言id
      */
     @Override
