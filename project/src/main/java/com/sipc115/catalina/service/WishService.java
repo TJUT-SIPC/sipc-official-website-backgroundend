@@ -20,6 +20,9 @@ public interface WishService {
     /**通过id修改寄语状态*/
     int updateWishStatus(Integer wishId, Integer wishStatus);
 
+    /**添加一条寄语*/
+    Wishes addWish(Wishes wish);
+
     /**通过id删除一条寄语*/
     void delWish(Integer wishId);
 

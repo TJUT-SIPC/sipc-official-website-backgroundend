@@ -48,7 +48,7 @@ public class MessageController {
         if(nickname==null || nickname.trim().isEmpty()){
             resultVOList.add(new ResultVO(2,"名字不能为空"));
         }
-        if(advice==null|| advice.trim().isEmpty()){
+        if(advice==null || advice.trim().isEmpty()){
             resultVOList.add(new ResultVO(3,"建议不能为空"));
         }
 

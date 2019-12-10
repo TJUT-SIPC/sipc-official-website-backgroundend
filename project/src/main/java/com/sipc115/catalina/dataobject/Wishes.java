@@ -3,6 +3,7 @@ package com.sipc115.catalina.dataobject;
 
 import lombok.Data;
 import lombok.Generated;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@DynamicInsert
 public class Wishes {
 
     /**寄语id*/

@@ -66,7 +66,17 @@ public class WishServiceImpl implements WishService {
     }
 
     /**
-     * 4.通过id删除一条寄语
+     * 4.添加一条寄语
+     * @param wish 寄语对象
+     * @return 基于对象
+     */
+    @Override
+    public Wishes addWish(Wishes wish) {
+        return wishRepository.save(wish);
+    }
+
+    /**
+     * 5.通过id删除一条寄语
      * @param wishId 寄语id
      */
     @Override

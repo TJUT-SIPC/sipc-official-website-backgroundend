@@ -37,6 +37,10 @@ public interface WishRepository extends JpaRepository<Wishes, Integer> {
     int updateWishStatus(@Param("wishId")Integer wishId, @Param("wishStatus")Integer wishStatus);
 
 
+    /**添加一条寄语*/
+    @Override
+    Wishes save(Wishes wish);
+
     /**通过id删除一个寄语*/
     @Override
     void delete(Integer integer);

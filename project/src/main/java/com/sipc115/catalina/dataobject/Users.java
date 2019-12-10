@@ -1,6 +1,7 @@
 package com.sipc115.catalina.dataobject;
 
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@DynamicInsert
 public class Users {
     /**
      * 用户ID
