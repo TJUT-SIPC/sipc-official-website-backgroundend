@@ -55,17 +55,28 @@
 返回
 
 ~~~ 
-{
-	"code": 0,
-    "msg": "提交成功",
-    "data": null
-}
-
-{
-	"code":1,
-	"msg":"邮箱格式错误",
-	"data":null
-}
+[
+		{
+        "code": 0,
+        "msg": "提交成功",
+        "data": null
+    }
+    {
+        "code": 1,
+        "msg": "邮箱格式错误",
+        "data": null
+    },
+    {
+        "code": 2,
+        "msg": "名字不能为空",
+        "data": null
+    },
+    {
+        "code": 3,
+        "msg": "建议不能为空",
+        "data": null
+    }
+]
 ~~~
 
 
@@ -148,22 +159,22 @@
 返回
 
 ~~~ 
-{
-	"code": 0,
-    "msg": "提交成功",
-    "data": null
-}
-
-{
-	"code":1,
-	"msg":"人名不能为空",
-	"data":null
-}
-
-{
-	"code":2,
-	"msg":"寄语不能为空",
-	"data":null
-}
+[
+    {
+        "code": 0,
+        "msg": "提交成功",
+        "data": null
+    }
+    {
+        "code": 1,
+        "msg": "人名不能为空",
+        "data": null
+    }
+		{
+        "code": 0,
+        "msg": "寄语不能为空",
+        "data": null
+    }
+]
 ~~~
 
