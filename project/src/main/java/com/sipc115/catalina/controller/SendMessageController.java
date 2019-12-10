@@ -32,11 +32,7 @@ public class SendMessageController {
             rightEmail = true;
         }
 
-        System.out.println("邮箱"+rightEmail);
-        System.out.println(nickname);
-        System.out.println(advice);
-
-        if(rightEmail && nickname!=null & advice!=null) {
+        if(rightEmail && nickname!=null && !nickname.trim().isEmpty() && advice!=null && !advice.trim().isEmpty() ) {
             /**保存建议*/
             MessageBoard message = new MessageBoard();
             message.setBoardEmail(email);
