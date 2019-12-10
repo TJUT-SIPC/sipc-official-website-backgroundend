@@ -17,15 +17,22 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * 通过id查询一个用户
+     * @param userId 用户id
+     * @return 用户对象
+     */
     @Override
     public Users findeOne(Integer userId) {
-        return null;
+        return userRepository.findOne(userId);
     }
 
     @Override
-    /***
-     * pageNum 页数
-     * pageSize 每页显示多少条
+    /**
+     * 分页查询所有用户
+     * @param pageNum 页数
+     * @param pageSize 一页显示多少条
+     * @return 查询到的用户集合
      */
     public List<Users> findAll(Integer pageNum, Integer pageSize) {
         Pageable pageable = new PageRequest(pageNum,pageSize);
@@ -34,12 +41,12 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 通过id更新用户信息
+     * 更新用户信息
      * @param user 用户对象
-     * @return 成功返回1
+     * @return 若成功返回1
      */
     @Override
-    public int updateUserById(Users user) {
+    public int updateUser(Users user) {
         int msg = userRepository.updateUserById(user.getUserId(),user.getUserName(),user.getUserPassword(),
                 user.getUserAge(),user.getUserGender(),user.getUserPhone(),
                 user.getUserEmail(),user.getUserLastLogin(),user.getUserStatus(),
@@ -52,6 +59,7 @@ public class UserServiceImpl implements UserService {
      * @param user 用户对象
      * @return  用户对象
      */
+    @Override
     public Users addUser(Users user){
         return userRepository.save(user);
     }
@@ -60,6 +68,7 @@ public class UserServiceImpl implements UserService {
      * 通过id删除一个用户
      * @param userId 用户id
      */
+    @Override
     public void delUser(Integer userId){
         userRepository.delete(userId);
     }

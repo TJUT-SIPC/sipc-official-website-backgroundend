@@ -35,4 +35,9 @@ public class UserRepositoryTest {
         System.out.println(repository.save(user));
     }
 
+    @Test
+    public void findOneTest(){
+        System.out.println(repository.findOne(3));
+    }
+
 }

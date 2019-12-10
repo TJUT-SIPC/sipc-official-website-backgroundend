@@ -15,8 +15,13 @@ import java.util.Date;
 @Repository
 public interface UserRepository extends JpaRepository<Users, Integer> {
 
+    /**通过id查询一个用户*/
     @Override
-    /**查询所有用户*/
+    Users findOne(Integer integer);
+
+
+    @Override
+    /**分页查询所有用户*/
     Page<Users> findAll(Pageable pageable);
 
 
@@ -27,7 +32,7 @@ public interface UserRepository extends JpaRepository<Users, Integer> {
             "userAge=:userAge, userGender=:userGender, userPhone=:userPhone, userEmail=:userEmail," +
             "userLastLogin=:userLastLogin, userStatus=:userStatus, userRemark=:userRemark," +
             "userHeadImage=:userHeadImage where userId = :userId")
-    int updateUserById(@Param("userId") Integer userId, @Param("userName")String userName,
+    int updateUserById(@Param("userId") Integer userIda, @Param("userName")String userName,
                        @Param("userPassword")String userPassword, @Param("userAge")Integer userAge,
                        @Param("userGender")String userGender, @Param("userPhone")String userPhone,
                        @Param("userEmail")String userEmail, @Param("userLastLogin")Date userLastLogin,

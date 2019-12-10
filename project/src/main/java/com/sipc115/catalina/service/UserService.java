@@ -18,9 +18,12 @@ public interface UserService {
     List<Users> findAll(Integer pageNum, Integer pageSize);
 
     /**修改用户*/
-    int updateUserById(Users user);
+    int updateUser(Users user);
 
     /**添加用户*/
     Users addUser(Users user);
+
+    /**删除用户*/
+    void delUser(Integer userId);
 
 }
