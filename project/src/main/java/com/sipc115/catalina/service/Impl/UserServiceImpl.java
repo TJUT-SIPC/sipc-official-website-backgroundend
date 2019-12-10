@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     /**
-     * 通过id查询一个用户
+     * 1.通过id查询一个用户
      * @param userId 用户id
      * @return 用户对象
      */
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     /**
-     * 分页查询所有用户
+     * 2.分页查询所有用户
      * @param pageNum 页数
      * @param pageSize 一页显示多少条
      * @return 查询到的用户集合
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 更新用户信息
+     * 3.更新用户信息
      * @param user 用户对象
      * @return 若成功返回1
      */
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 添加新用户
+     * 4.添加新用户
      * @param user 用户对象
      * @return  用户对象
      */
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 通过id删除一个用户
+     * 5.通过id删除一个用户
      * @param userId 用户id
      */
     @Override

@@ -18,7 +18,7 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectRepository projectRepository;
 
     /**
-     * 通过id查询一个项目
+     * 1.通过id查询一个项目
      * @param projectId 项目id
      * @return 项目对象
      */
@@ -28,7 +28,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     /**
-     * 分页查询所有项目
+     * 2.分页查询所有项目
      * @param pageNum 页数
      * @param pageSize 一页显示多少条
      * @return 查询到的项目集合
@@ -41,7 +41,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     /**
-     * 更新项目信息
+     * 3.更新项目信息
      * @param project 项目对象
      * @return 若成功返回1
      */
@@ -52,7 +52,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     /**
-     * 添加新项目
+     * 4.添加新项目
      * @param project 项目对象
      * @return 项目对象
      */
@@ -62,7 +62,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     /**
-     * 通过id删除一个项目
+     * 5.通过id删除一个项目
      * @param projectId 项目id
      */
     @Override

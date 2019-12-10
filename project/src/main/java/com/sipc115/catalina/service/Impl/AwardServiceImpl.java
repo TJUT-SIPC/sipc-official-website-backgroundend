@@ -18,7 +18,7 @@ public class AwardServiceImpl implements AwardService {
     private AwardRepository awardRepository;
 
     /**
-     * 通过id查询一个奖项
+     * 1.通过id查询一个奖项
      * @param awardId 奖项id
      * @return 奖项对象
      */
@@ -28,7 +28,7 @@ public class AwardServiceImpl implements AwardService {
     }
 
     /**
-     * 分页查询所有奖项
+     * 2.分页查询所有奖项
      * @param pageNum 奖项
      * @param pageSize 一页显示多少条
      * @return 查询到的奖项集合
@@ -40,16 +40,30 @@ public class AwardServiceImpl implements AwardService {
         return page.getContent();
     }
 
+    /**
+     * 3.修改一个奖项
+     * @param award 奖项对象
+     * @return  若成功返回1
+     */
     @Override
     public int updateAward(Awards award) {
         return awardRepository.updateAwardById(award.getAwardId(),award.getAwardName(),award.getAwardTime());
     }
 
+    /**
+     * 4.添加一个奖项
+     * @param award 奖项对象
+     * @return 奖项对象
+     */
     @Override
     public Awards addAward(Awards award) {
         return awardRepository.save(award);
     }
 
+    /**
+     * 5.通过id删除一个奖项
+     * @param awardId 奖项id
+     */
     @Override
     public void delAward(Integer awardId) {
         awardRepository.delete(awardId);
