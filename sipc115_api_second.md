@@ -64,47 +64,43 @@
 返回
 
 ~~~ 
-{
+[
+	{
 		"code":0,
 		"msg":"success",
 		"data":null
-}
+	}
 
-{
+	{
 		"code":1,
 		"msg":"用户名格式错误",
 		"data":null
-}
+	}
 
-{
-		"code":2,
-		"msg":"用户名格式错误",
-		"data":null
-}
-
-{
+	{
 		"code":2,
 		"msg":"密码格式错误",
 		"data":null
-}
+	}
 
-{
+	{
 		"code":3,
-		"msg":"年龄超出范围",
+		"msg":"年龄超出范围",					//整数范围0-120
 		"data":null
-}
+	}
 
-{
+	{
 		"code":4,
 		"msg":"手机号码格式错误",
 		"data":null
-}
+	}
 
-{
+	{
 		"code":5,
 		"msg":"邮箱格式错误",
 		"data":null
-}
+	}
+]
 ~~~
 
 
@@ -152,47 +148,50 @@
 返回
 
 ~~~ 
-{
+[
+	{
 		"code":0,
 		"msg":"success",
 		"data":null
-}
+	}
 
-{
+	{
 		"code":1,
 		"msg":"用户名格式错误",
 		"data":null
-}
+	}
 
-{
+	{
 		"code":2,
 		"msg":"用户名格式错误",
 		"data":null
-}
+	}
 
-{
+	{
 		"code":2,
 		"msg":"密码格式错误",
 		"data":null
-}
+	}
 
-{
+	{
 		"code":3,
 		"msg":"年龄超出范围",
 		"data":null
-}
+	}
 
-{
+	{
 		"code":4,
 		"msg":"手机号码格式错误",
 		"data":null
-}
+	}
 
-{
+	{
 		"code":5,
 		"msg":"邮箱格式错误",
 		"data":null
-}
+	}
+]
+
 ~~~
 
 
@@ -253,23 +252,32 @@
 返回
 
  ~~~ 
-{
+[
+	{
 		"code":0,
 		"msg":"success",
 		"data":null
-}
+	}
 
-{
+	{
 		"code":1,
 		"msg":"项目描述不能为空",
 		"data":null
-}
+	}
 
-{
+	{
 		"code":2,
-		"msg":"项目图片不能为空",
+		"msg":"项目时间不能为空",
 		"data":null
-}
+	}
+	
+	{
+		"code":3,
+		"msg":"项目时间不能为空",
+		"data":null
+	}
+]
+
  ~~~
 
 
@@ -311,23 +319,26 @@
 返回
 
 ~~~
-{
+[
+	{
 		"code":0,
 		"msg":"success",
 		"data":null
-}
+	}
 
-{
+	{
 		"code":1,
 		"msg":"项目描述不能为空",
 		"data":null
-}
+	}
 
-{
+	{
 		"code":2,
 		"msg":"项目图片不能为空",
 		"data":null
-}
+	}
+]
+
 ~~~
 
 
@@ -367,15 +378,15 @@
 
 
 
-### 修改
+### 修改寄语状态
 
 [POST] / wishCenter / modifyWish
 
 参数
 
-| 参数名称    | 是否必须 | 说明     |
-| ----------- | -------- | -------- |
-| description | Y        | 项目描述 |
+| 参数名称   | 是否必须 | 说明     |
+| ---------- | -------- | -------- |
+| wishStatus | Y        | 项目描述 |
 
 返回
 
@@ -466,23 +477,32 @@
 返回
 
 ~~~
-{
+[
+	{
 		"data":0,
 		"msg":"success",
 		"data":null
-}
+	}
 
-{
+	{
 		"data":1,
-		"msg":"动态标题不能为空",
+		"msg":"项目图片不能为空",
 		"data":null
-}
+	}
 
-{
+	{
 		"data":2,
-		"msg":"动态内容不能为空",
+		"msg":"项目标题不能为空",
 		"data":null
-}
+	}
+	
+	{
+		"data":3,
+		"msg":"项目内容不能为空",
+		"data":null
+	}
+]
+
 ~~~
 
 
@@ -526,23 +546,26 @@
 返回
 
 ~~~
-{
+[
+	{
 		"code":0,
 		"msg":"success",
 		"data":null
-}
+	}
 
-{
+	{
 		"code":1,
-		"msg":"动态标题不能为空",
+		"msg":"动态时间不能为空",
 		"data":null
-}
+	}
 
-{
+	{
 		"code":2,
-		"msg":"动态内容不能为空",
+		"msg":"动态图片不能为空",
 		"data":null
-}
+	}
+]
+
 ~~~
 
 
