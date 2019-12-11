@@ -339,7 +339,18 @@
 
 	{
 		"code":2,
+		"msg":"项目时间不能为空",
+		"data":null
+	}
+	
+	{
+		"code":3,
 		"msg":"项目图片不能为空",
+		"data":null
+	}
+	{
+		"code":4,
+		"msg":"图片大小超过限制",					//限制10MB内
 		"data":null
 	}
 

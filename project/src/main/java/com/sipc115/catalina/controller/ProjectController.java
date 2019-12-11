@@ -9,9 +9,7 @@ import com.sipc115.catalina.service.ProjectService;
 import com.sipc115.catalina.service.UploadFileService;
 import com.sipc115.catalina.utils.URLUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +29,9 @@ public class ProjectController {
     @Autowired
     private UploadFileService uploadFileService;
 
+    //图片链接集合[原图,压缩图]
+    private List<String> projectImageList;
+
     /**
      * 1.修改一条项目
      * @param id    项目id
@@ -46,14 +47,12 @@ public class ProjectController {
 
         if(image!=null && description!=null && !description.trim().isEmpty() && time!=null){
 
-            //用以接收原图与压缩图链接
-            List<String> list;
-
-            list = uploadFileService.uploadProjectImage(image);
+            //接收原图与压缩图链接集合
+            projectImageList = uploadFileService.uploadProjectImage(image);
 
             //原图相对链接
-            String rawImageURL = list.get(0);
-            String compressImageURL = list.get(1);
+            String rawImageURL = projectImageList.get(0);
+            String compressImageURL = projectImageList.get(1);
 
             //封装对象
             Projects project = new Projects();
@@ -145,5 +144,75 @@ public class ProjectController {
         return resultVO;
     }
 
+    /**
+     * 3.添加一个项目
+     * @param description 项目描述
+     * @param time  项目时间
+     * @param image 项目图片
+     * @return ResultVO
+     * @throws IOException
+     */
+    @PostMapping("/addProject")
+    public ResultVO addProject(String description, Date time, MultipartFile image) throws IOException {
+
+        System.out.println(description);
+        System.out.println(time);
+        System.out.println(image);
+
+        //验证参数
+        if(description!=null && !description.trim().isEmpty() && time!=null && image!=null){
+
+            //接收原图与压缩图链接集合
+            projectImageList = uploadFileService.uploadProjectImage(image);
+
+            //原图相对链接
+            String rawImageURL = projectImageList.get(0);
+            String compressImageURL = projectImageList.get(1);
+
+            //封装对象
+            Projects project = new Projects();
+            project.setProjectDescription(description);
+            project.setProjectTime(time);
+            project.setProjectImageRaw(rawImageURL);
+            project.setProjectImageCompress(compressImageURL);
+
+            projectService.addProject(project);
+
+            return new ResultVO(0,"success");
+        }
+
+        //检测项目描述是否为空
+        if(description == null || description.trim().isEmpty()){
+            return new ResultVO(1,"项目描述不能为空");
+        }
+
+        //检测时间是否为空
+        if(time == null){
+            return new ResultVO(2,"项目时间不能为空");
+        }
+
+        //检测是否上传了图片
+        if(image == null){
+            return new ResultVO(3,"项目图片不能为空");
+        }
+
+        //检测图片大小是否超过10MB
+        if(image.getSize() > Math.pow(10,7)){
+            return new ResultVO(4,"图片大小超过限制");
+        }
+
+        return new ResultVO(0,"success");
+    }
+
+    /**
+     * 4.删除一个项目
+     * @param id 要删除的项目id
+     * @return ResultVO
+     */
+    @PostMapping("/delProject")
+    public ResultVO delProject(Integer id){
+        projectService.delProject(id);
+        return new ResultVO(0,"success");
+    }
 
 }
