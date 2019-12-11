@@ -1,4 +1,4 @@
-package com.sipc115.catalina.Configuration;
+package com.sipc115.catalina.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

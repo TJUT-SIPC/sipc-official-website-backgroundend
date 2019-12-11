@@ -12,9 +12,9 @@ import java.util.List;
 public class ProjectAndAwardListVO {
 
     @JsonProperty("project_list")
-    private List<ProjectListInfoVO> projectListInfoVOList;
+    private List<HomeProjectListInfoVO> homeProjectListInfoVOList;
 
     @JsonProperty("award_list")
-    private List<AwardListInfoVO> awardListInfoVOList;
+    private List<HomeAwardListInfoVO> homeAwardListInfoVOList;
 
 }
