@@ -22,7 +22,7 @@ public class DynamicController {
     private DynamicService dynamicService;
 
     @GetMapping("/dynamics")
-    public ResultVO showDynamics(Integer page){
+    public ResultVO getDynamics(Integer page){
 
         System.out.println("接收到页数"+page);
 

@@ -58,9 +58,7 @@ public class WishController {
     }
 
     @PostMapping("/sendWishes")
-    public List<ResultVO> sendWish(String name, String word){
-
-        List<ResultVO> resultVOList = new ArrayList<>();
+    public ResultVO sendWish(String name, String word){
 
         /**验证参数*/
         if(name!=null && !name.trim().isEmpty() && word!=null && !word.trim().isEmpty()){
@@ -70,16 +68,16 @@ public class WishController {
             wish.setWishWord(word);
             wishService.addWish(wish);
 
-            resultVOList.add(new ResultVO(0,"提交成功"));
+            return new ResultVO(0,"success");
         }
         if(name == null || name.trim().isEmpty()){
-            resultVOList.add(new ResultVO(1,"人名不能为空"));
+            return new ResultVO(1,"人名不能为空");
         }
         if(word == null || word.trim().isEmpty()){
-            resultVOList.add(new ResultVO(2,"寄语不能为空"));
+            return new ResultVO(2,"寄语不能为空");
         }
 
-        return resultVOList;
+        return new ResultVO(0,"success");
     }
 
 }

@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/")
@@ -20,9 +18,7 @@ public class MessageController {
     private MessageBoardService messageBoardService;
 
     @PostMapping("/sendMessage")
-    public List<ResultVO> sendMessage(String email, String nickname, String advice){
-
-        List<ResultVO> resultVOList = new ArrayList<>();
+    public ResultVO sendMessage(String email, String nickname, String advice){
 
         /**验证参数*/
         boolean rightEmail = false;
@@ -40,19 +36,19 @@ public class MessageController {
             message.setBoardAdvice(advice);
             messageBoardService.addMessage(message);
 
-            resultVOList.add(new ResultVO(0,"提交成功"));
+            return new ResultVO(0,"success");
         }
         if(!rightEmail){
-            resultVOList.add(new ResultVO(1,"邮箱格式错误"));
+            return new ResultVO(1,"邮箱格式错误");
         }
         if(nickname==null || nickname.trim().isEmpty()){
-            resultVOList.add(new ResultVO(2,"名字不能为空"));
+            return new ResultVO(2,"名字不能为空");
         }
         if(advice==null || advice.trim().isEmpty()){
-            resultVOList.add(new ResultVO(3,"建议不能为空"));
+            return new ResultVO(3,"建议不能为空");
         }
 
-        return resultVOList;
+        return new ResultVO(0,"提交成功");
     }
 
 }

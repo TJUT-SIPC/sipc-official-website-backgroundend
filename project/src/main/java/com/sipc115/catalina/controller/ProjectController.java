@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,11 +26,10 @@ public class ProjectController {
     private UploadFileService uploadFileService;
 
     @PostMapping("/modifyProject")
-    public List<ResultVO> updateProject(Integer id , String description, Date time, MultipartFile image, HttpServletRequest request) throws IOException {
-
-        List<ResultVO> resultVOList = new ArrayList<>();
+    public ResultVO updateProject(Integer id , String description, Date time, MultipartFile image, HttpServletRequest request) throws IOException {
 
         if(image!=null && description!=null && !description.trim().isEmpty() && time!=null){
+
             //用以接收原图与压缩图链接
             List<String> list;
 
@@ -57,30 +55,31 @@ public class ProjectController {
 
             projectService.updateProject(project);
 
-            resultVOList.add(new ResultVO(0,"success"));
+            return new ResultVO(0,"success");
         }
 
         //检测项目描述是否为空
         if(description == null || description.trim().isEmpty()){
-            resultVOList.add(new ResultVO(1,"项目描述不能为空"));
+            return new ResultVO(1,"项目描述不能为空");
         }
 
         //检测时间是否为空
         if(time == null){
-            resultVOList.add(new ResultVO(2,"项目时间不能为空"));
+            return new ResultVO(2,"项目时间不能为空");
         }
 
         //检测是否上传了图片
         if(image == null){
-            resultVOList.add(new ResultVO(3,"项目图片不能为空"));
+            return new ResultVO(3,"项目图片不能为空");
         }
 
         //检测图片大小是否超过10MB
         if(image.getSize() > Math.pow(10,7)){
-            resultVOList.add(new ResultVO(4,"图片大小超过限制"));
+            return new ResultVO(4,"图片大小超过限制");
         }
 
-        return resultVOList;
+        return new ResultVO(0,"success");
+
     }
 
 }
