@@ -1,5 +1,6 @@
 package com.sipc115.catalina.VO.WishVO;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -14,5 +15,8 @@ public class WishListInfoVO {
 
     @JsonProperty("word")
     private String wishWord;
+
+    @JsonProperty("status")
+    private Integer wishStatus;
 
 }

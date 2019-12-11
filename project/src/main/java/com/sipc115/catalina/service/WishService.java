@@ -8,6 +8,8 @@ import java.util.List;
 @Service
 public interface WishService {
 
+    Wishes findOne(Integer wishId);
+
     /**分页查询所有寄语*/
     List<Wishes> findAll(Integer pageNum, Integer pageSize);
 

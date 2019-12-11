@@ -17,8 +17,13 @@ public class WishServiceImpl implements WishService {
     @Autowired
     private WishRepository wishRepository;
 
+    @Override
+    public Wishes findOne(Integer wishId) {
+        return wishRepository.findOne(wishId);
+    }
+
     /**
-     * 1.分页查询所有寄语
+     * 2.分页查询所有寄语
      * @param pageNum 页数
      * @param pageSize  一页显示多少条
      * @return 查询到的寄语集合
@@ -31,7 +36,7 @@ public class WishServiceImpl implements WishService {
     }
 
     /**
-     * 2.通过寄语审核状态查询+分页
+     * 3.通过寄语审核状态查询+分页
      * @param wishStatus 寄语状态代码
      * @param pageNum   页数
      * @param pageSize  一页显示多少条
@@ -45,7 +50,7 @@ public class WishServiceImpl implements WishService {
     }
 
     /**
-     * 3.随机查询limit条寄语
+     * 4.随机查询limit条寄语
      * @param limit
      * @return 查询到的寄语集合
      */
@@ -55,7 +60,7 @@ public class WishServiceImpl implements WishService {
     }
 
     /**
-     * 4.更新寄语状态
+     * 5.更新寄语状态
      * @param wishId 寄语id
      * @param wishStatus  寄语状态
      * @return
@@ -66,7 +71,7 @@ public class WishServiceImpl implements WishService {
     }
 
     /**
-     * 4.添加一条寄语
+     * 6.添加一条寄语
      * @param wish 寄语对象
      * @return 基于对象
      */
@@ -76,7 +81,7 @@ public class WishServiceImpl implements WishService {
     }
 
     /**
-     * 5.通过id删除一条寄语
+     * 7.通过id删除一条寄语
      * @param wishId 寄语id
      */
     @Override

@@ -15,6 +15,10 @@ import java.util.List;
 @Repository
 public interface WishRepository extends JpaRepository<Wishes, Integer> {
 
+    /**通过id查询一条寄语*/
+    @Override
+    Wishes findOne(Integer integer);
+
     /**分页查询所有寄语*/
     Page<Wishes> findAll(Pageable pageable);
 

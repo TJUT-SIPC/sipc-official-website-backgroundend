@@ -11,4 +11,7 @@ public class WishListVO {
     @JsonProperty("wishes_list")
     private List<WishListInfoVO> wishListInfoVOList;
 
+    @JsonProperty("total")
+    private Integer total_wishes;
+
 }
