@@ -4,13 +4,11 @@ import com.sipc115.catalina.VO.ResultVO;
 import com.sipc115.catalina.VO.UserVO.UserListInfoVO;
 import com.sipc115.catalina.VO.UserVO.UserListVO;
 import com.sipc115.catalina.dataobject.Users;
+import com.sipc115.catalina.service.UserAndAwardService;
 import com.sipc115.catalina.service.UserService;
 import com.sipc115.catalina.utils.URLUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +22,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserAndAwardService userAndAwardService;
 
     @GetMapping("/getUsers")
     public ResultVO getUsers(@RequestParam("page")Integer page, @RequestParam("pageSize")Integer pageSize , HttpServletRequest request){
@@ -68,6 +68,18 @@ public class UserController {
         resultVO.setData(userListVO);
 
         return resultVO;
+    }
+
+    @PostMapping("/delUser")
+    public ResultVO delUser(Integer id){
+
+        //1.先删除用户关联的奖项记录
+        userAndAwardService.delAwardByUserId(id);
+        //2.删除一个用户
+        userService.delUser(id);
+
+        return new ResultVO(0,"success");
+
     }
 
 }
