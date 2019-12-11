@@ -58,7 +58,7 @@
 
 		{
         "code": 0,
-        "msg": "提交成功",
+        "msg": "success",
         "data": null
     }
     {
@@ -163,7 +163,7 @@
 
     {
         "code": 0,
-        "msg": "提交成功",
+        "msg": "success",
         "data": null
     }
     {
