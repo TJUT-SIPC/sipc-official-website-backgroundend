@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/projectCenter")
 public class ProjectController {
 
     @Autowired
@@ -26,8 +26,8 @@ public class ProjectController {
     @Autowired
     private UploadFileService uploadFileService;
 
-    @PostMapping("/addProject")
-    public List<ResultVO> updateProject(MultipartFile image, Integer id , String description, Date time, HttpServletRequest request) throws IOException {
+    @PostMapping("/modifyProject")
+    public List<ResultVO> updateProject(Integer id , String description, Date time, MultipartFile image, HttpServletRequest request) throws IOException {
 
         List<ResultVO> resultVOList = new ArrayList<>();
 
@@ -57,7 +57,7 @@ public class ProjectController {
 
             projectService.updateProject(project);
 
-            resultVOList.add(new ResultVO(0,"上传成功"));
+            resultVOList.add(new ResultVO(0,"success"));
         }
 
         //检测项目描述是否为空
