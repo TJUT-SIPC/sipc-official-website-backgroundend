@@ -31,7 +31,7 @@ public class WishController {
 
         WishListVO wishListVO = new WishListVO();
 
-        List<WishListInfoVO> wishListInfoVOList = new ArrayList<>();
+        List<WishListInfoVO> wishListInfoVOList = new ArrayList();
 
         for(Wishes wish : wishList){
 

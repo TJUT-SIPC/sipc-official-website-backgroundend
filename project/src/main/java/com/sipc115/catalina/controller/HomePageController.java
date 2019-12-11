@@ -43,9 +43,9 @@ public class HomePageController {
 
         ProjectAndAwardListVO projectAndAwardListVO = new ProjectAndAwardListVO();
 
-        List<ProjectListInfoVO> projectListInfoVOList = new ArrayList<>();
+        List<ProjectListInfoVO> projectListInfoVOList = new ArrayList();
 
-        List<AwardListInfoVO> awardListInfoVOList = new ArrayList<>();
+        List<AwardListInfoVO> awardListInfoVOList = new ArrayList();
 
         /**project_list部分组装*/
         for(Projects project : projectList){

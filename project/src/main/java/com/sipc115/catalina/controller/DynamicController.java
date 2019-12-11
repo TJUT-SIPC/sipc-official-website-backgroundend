@@ -36,7 +36,7 @@ public class DynamicController {
 
         DynamicListVO dynamicListVO = new DynamicListVO();
 
-        List<DynamicListInfoVO> dynamicListInfoVOList = new ArrayList<>();
+        List<DynamicListInfoVO> dynamicListInfoVOList = new ArrayList();
 
         for(Dynamics dynamic : dynamicList){
 
