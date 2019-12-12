@@ -577,7 +577,7 @@
 | image    | N        | 动态图片 |
 | header   | Y        | 项目时间 |
 | text     | Y        | 动态内容 |
-| time     | N        | 动态时间 |
+| time     | Y        | 动态时间 |
 | editor   | N        | 发布者   |
 | category | N        | 分类编号 |
 
