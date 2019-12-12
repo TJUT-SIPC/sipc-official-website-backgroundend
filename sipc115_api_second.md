@@ -525,22 +525,21 @@
 
 	{
 		"data":1,
-		"msg":"动态图片不能为空",	
-		"data":null
-	}
-
-	{
-		"data":2,
 		"msg":"动态标题不能为空",
 		"data":null
 	}
 	
 	{
-		"data":3,
+		"data":2,
 		"msg":"动态内容不能为空",
 		"data":null
 	}
-
+	
+	{
+		"data":3,
+		"msg":"动态时间不能为空",
+		"data":null
+	}
 ~~~
 
 
@@ -560,7 +559,7 @@
 ~~~ 
 {
 		"code":0,
-		"msg":"删除成功",
+		"msg":"success",
 		"data":null
 }
 ~~~
@@ -594,19 +593,19 @@
 
 	{
 		"data":1,
-		"msg":"动态图片不能为空",	
-		"data":null
-	}
-
-	{
-		"data":2,
 		"msg":"动态标题不能为空",
 		"data":null
 	}
 	
 	{
-		"data":3,
+		"data":2,
 		"msg":"动态内容不能为空",
+		"data":null
+	}
+	
+	{
+		"data":3,
+		"msg":"动态时间不能为空",
 		"data":null
 	}
 
