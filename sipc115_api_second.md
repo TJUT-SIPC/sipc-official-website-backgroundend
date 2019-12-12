@@ -125,6 +125,12 @@
 		"msg":"邮箱格式错误",
 		"data":null
 	}
+	
+	{
+		"code":7,
+		"msg":"图片大小超出限制"		//限制10MB
+		"data":null
+	}
 
 ~~~
 
@@ -189,34 +195,39 @@
 
 	{
 		"code":2,
-		"msg":"用户名格式错误",
-		"data":null
-	}
-
-	{
-		"code":2,
 		"msg":"密码格式错误",
 		"data":null
 	}
-
+	
 	{
 		"code":3,
-		"msg":"年龄超出范围",
+		"msg":"学号格式错误",
 		"data":null
 	}
-
+	
 	{
 		"code":4,
-		"msg":"手机号码格式错误",
+		"msg":"年龄超出范围",					//整数范围0-120
 		"data":null
 	}
 
 	{
 		"code":5,
-		"msg":"邮箱格式错误",
+		"msg":"手机号码格式错误",
 		"data":null
 	}
 
+	{
+		"code":6,
+		"msg":"邮箱格式错误",
+		"data":null
+	}
+	
+	{
+		"code":7,
+		"msg":"图片大小超出限制"		//限制10MB
+		"data":null
+	}
 
 ~~~
 
