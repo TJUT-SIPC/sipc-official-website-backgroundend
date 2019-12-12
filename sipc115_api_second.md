@@ -585,30 +585,29 @@
 
 ~~~
 
-	{
-		"code":0,
+		{
+		"data":0,
 		"msg":"success",
 		"data":null
 	}
 
 	{
-		"code":1,
-		"msg":"动态时间不能为空",
+		"data":1,
+		"msg":"动态图片不能为空",	
 		"data":null
 	}
 
 	{
-		"code":2,
-		"msg":"动态图片不能为空",
+		"data":2,
+		"msg":"动态标题不能为空",
 		"data":null
 	}
 	
 	{
-		"code":3,
-		"msg":"图片大小超出限制",		//限制10MB
+		"data":3,
+		"msg":"动态内容不能为空",
 		"data":null
 	}
-
 
 ~~~
 
