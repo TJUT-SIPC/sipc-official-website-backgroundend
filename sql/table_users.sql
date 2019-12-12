@@ -2,6 +2,7 @@ CREATE TABLE users(
 		`user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户id',
 		`user_name` varchar(20) NOT NULL COMMENT '用户名',
 		`user_password` varchar(20) NOT NULL COMMENT '密码',
+		`user_student_id` varchar(20) NOT NULL COMMENT '学生学号',
 		`user_age` int(11) DEFAULT NULL COMMENT '年龄',
 		`user_gender` varchar(6) DEFAULT NULL COMMENT '性别',
 		`user_phone` varchar(20) DEFAULT NULL COMMENT '联系方式',
