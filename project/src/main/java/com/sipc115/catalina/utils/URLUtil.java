@@ -22,8 +22,8 @@ public class URLUtil {
      * 2.配置UploadFileService中资源目录相对路径
      * @return
      */
-    public static String getResourcePath(){
-        return "/Volumes/disk3/天津理工大学/程序员之路/115官网项目/sipc115_resources/";
+    public static String getVirtualLocalhostPath(){
+        return "/Volumes/disk3/天津理工大学/程序员之路/115官网项目/";
     }
 
 }

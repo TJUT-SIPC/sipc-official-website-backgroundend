@@ -30,7 +30,7 @@ public class UploadFileServiceImpl implements UploadFileService {
     public List<String> uploadProjectImage(MultipartFile projectImage) throws IOException {
 
         //保存目录（需要修改）
-        projectImagePath = URLUtil.getResourcePath() + "images/project_images/";
+        projectImagePath = URLUtil.getVirtualLocalhostPath() + "sipc115_resources/images/project_images/";
 
         //判断文件是否存在，不存在则创建
         File file = new File(projectImagePath);
@@ -76,7 +76,7 @@ public class UploadFileServiceImpl implements UploadFileService {
     public List<String> uploadUserHeadImage(MultipartFile userHeadImage) throws IOException {
 
         //保存目录（需要修改）
-        userHeadImagePath = URLUtil.getResourcePath() + "images/user_head_images/";
+        userHeadImagePath = URLUtil.getVirtualLocalhostPath() + "sipc115_resources/images/user_head_images/";
 
         //判断文件是否存在，不存在则创建
         File file = new File(userHeadImagePath);
@@ -95,19 +95,22 @@ public class UploadFileServiceImpl implements UploadFileService {
         String newCompressPath =  userHeadImagePath + newCompressName;
 
         //保存原图
-        userHeadImage.transferTo(new File( newRawPath));
+        File imageRaw = new File(newRawPath);
+        userHeadImage.transferTo(imageRaw);
 
         //压缩图片
-        Thumbnails.of(newRawPath).size(60,60).toFile(newCompressPath);
+        Thumbnails.of(newRawPath).size(150,150).toFile(newCompressPath);
+
+        /**根据业务需求，返回压缩后头像图，删除原图*/
+        imageRaw.delete();
 
         //返回原图与压缩图相对服务器链接集合
-        String rawURL = newRawPath.substring(newRawPath.indexOf("sipc115_resources"),newRawPath.length());
         String compressURL = newCompressPath.substring(newCompressPath.indexOf("sipc115_resources"),newCompressPath.length());
 
         List<String> userHeadImageURLlist = new ArrayList();
 
         userHeadImageURLlist.add(compressURL);
-        userHeadImageURLlist.add(rawURL);
+        userHeadImageURLlist.add(null);
 
         return userHeadImageURLlist;
     }
@@ -121,7 +124,7 @@ public class UploadFileServiceImpl implements UploadFileService {
     @Override
     public List<String> uploadDynamicImage(MultipartFile dynamicImage) throws IOException {
         //保存目录（需要修改）
-        dynamicImagePath = URLUtil.getResourcePath() + "images/dynamic_images/";
+        dynamicImagePath = URLUtil.getVirtualLocalhostPath() + "sipc115_resources/images/dynamic_images/";
 
         //判断文件是否存在，不存在则创建
         File file = new File(dynamicImagePath);
@@ -136,23 +139,37 @@ public class UploadFileServiceImpl implements UploadFileService {
         String newRawName = uuid + "_raw.png";
         String newRawPath = dynamicImagePath + newRawName;
 
-        String newCompressName = uuid + "_compress.png";
-        String newCompressPath =  dynamicImagePath + newCompressName;
+        //String newCompressName = uuid + "_compress.png";
+        //String newCompressPath =  dynamicImagePath + newCompressName;
 
         //保存原图
         dynamicImage.transferTo(new File( newRawPath));
 
-        //压缩图片
-        Thumbnails.of(newRawPath).scale(0.6f).toFile(newCompressPath);
-
         //返回原图与压缩图相对服务器链接集合
         String rawURL = newRawPath.substring(newRawPath.indexOf("sipc115_resources"),newRawPath.length());
-        String compressURL = newCompressPath.substring(newCompressPath.indexOf("sipc115_resources"),newCompressPath.length());
 
         List<String> dynamicImageURLList = new ArrayList();
-        dynamicImageURLList.add(compressURL);
+        dynamicImageURLList.add(null);
         dynamicImageURLList.add(rawURL);
 
         return dynamicImageURLList;
+    }
+
+
+    /**
+     * 4.删除指定URL照片
+     * @param imageURL  URL
+     * @return          删除成功返回true，否则返回false
+     */
+    @Override
+    public boolean deleteImage(String imageURL) {
+
+        File file = new File(imageURL);
+
+        if(file.exists() && file.isFile()){
+            file.delete();
+            return true;
+        }
+        return false;
     }
 }

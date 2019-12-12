@@ -234,8 +234,15 @@ public class UserController {
         //3.保存数据
         if(rightName && rightPassword && rightStudentId && rightAge && rightPhone && rightEmail){
 
+
+            Users user = userService.findeOne(id);
+
+            //若头像更新，删除原有头像图片资源
+            if(head_image != null && !head_image.equals(user.getUserHeadImage())){
+                uploadFileService.deleteImage(URLUtil.getVirtualLocalhostPath() + user.getUserHeadImage());
+            }
+
             //封装对象
-            Users user = new Users();
             user.setUserId(id);
             user.setUserName(name);
             user.setUserPassword(password);
@@ -287,9 +294,14 @@ public class UserController {
 
         //1.先删除用户关联的奖项记录
         userAndAwardService.delRelationByUserId(id);
-        //2.删除一个用户
-        userService.delUser(id);
 
+        //2.删除用户头像图片资源
+        Users user = userService.findeOne(id);
+        uploadFileService.deleteImage(URLUtil.getVirtualLocalhostPath() + user.getUserHeadImage());
+        System.out.println(URLUtil.getVirtualLocalhostPath() + user.getUserHeadImage());
+
+        //3.从数据库删除记录
+        userService.delUser(id);
         return new ResultVO(0,"success");
 
     }

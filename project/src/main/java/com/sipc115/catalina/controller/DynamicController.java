@@ -192,8 +192,12 @@ public class DynamicController {
         //2.保存数据
         if(rightHeader && rightText ){
 
+            Dynamics dynamic = dynamicService.findOne(id);
+
+            //若动态图片更新，删除原有动态图片资源
+            uploadFileService.deleteImage(URLUtil.getVirtualLocalhostPath() + dynamic.getDynamicImage());
+
             //封装对象
-            Dynamics dynamic = new Dynamics();
             dynamic.setDynamicId(id);
             dynamic.setDynamicImage(image);
             dynamic.setDynamicHeader(header);
@@ -223,6 +227,11 @@ public class DynamicController {
     @PostMapping("/dynamicCenter/delDynamic")
     public ResultVO delDynamic(Integer id){
 
+        //1.删除动态相关图片资源
+        Dynamics dynamic = dynamicService.findOne(id);
+        uploadFileService.deleteImage(URLUtil.getVirtualLocalhostPath() + dynamic.getDynamicImage());
+
+        //2.从数据库删除记录
         dynamicService.delDynamic(id);
         return new ResultVO(0,"success");
     }

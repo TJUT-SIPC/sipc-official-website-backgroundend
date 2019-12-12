@@ -18,4 +18,7 @@ public interface UploadFileService {
 
     /**上传动态图片*/
     List<String> uploadDynamicImage(MultipartFile upload) throws IOException;
+
+    /**删除指定图片文件*/
+    public boolean deleteImage(String imageURL);
 }

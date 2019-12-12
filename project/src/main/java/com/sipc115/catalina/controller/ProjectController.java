@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,8 +49,14 @@ public class ProjectController {
 
         if(rawImageURL!=null && compressImageURL!=null && description!=null && !description.trim().isEmpty() && time!=null){
 
-            //封装对象
-            Projects project = new Projects();
+            //1.若图像更新，删除原有图像资源
+            Projects project = projectService.findOne(id);
+            if(!rawImageURL.equals(project.getProjectImageRaw()) && !compressImageURL.equals(project.getProjectImageCompress())){
+                uploadFileService.deleteImage(URLUtil.getVirtualLocalhostPath() + project.getProjectImageRaw());
+                uploadFileService.deleteImage(URLUtil.getVirtualLocalhostPath() + project.getProjectImageCompress());
+            }
+
+            //2.封装对象
             project.setProjectId(id);
             project.setProjectDescription(description);
             project.setProjectTime(time);
@@ -177,6 +184,12 @@ public class ProjectController {
      */
     @PostMapping("/delProject")
     public ResultVO delProject(Integer id){
+        //1.删除项目相关图片资源
+        Projects project = projectService.findOne(id);
+        uploadFileService.deleteImage(URLUtil.getVirtualLocalhostPath() + project.getProjectImageRaw());
+        uploadFileService.deleteImage(URLUtil.getVirtualLocalhostPath() + project.getProjectImageCompress());
+
+        //2.删除数据库中该条项目
         projectService.delProject(id);
         return new ResultVO(0,"success");
     }
