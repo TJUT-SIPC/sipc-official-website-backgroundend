@@ -1,6 +1,7 @@
 package com.sipc115.catalina.dataobject;
 
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import java.util.Date;
 @Entity
 @Data
 @DynamicUpdate
+@DynamicInsert
 public class MessageBoard {
     /**留言id*/
     @Id

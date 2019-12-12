@@ -112,7 +112,7 @@ public class UserController {
      * @throws IOException
      */
     @PostMapping("/addUser")
-    public ResultVO addUser(String name, String password, String student_id, Integer age, String gender, String phone, String email, Integer status, String remark, MultipartFile head_image) throws IOException {
+    public ResultVO addUser(String name, String password, String student_id, Integer age, String gender, String phone, String email, Integer status, String remark, String head_image) throws IOException {
 
         //1.验证必须参数
         boolean rightName = false;
@@ -143,14 +143,6 @@ public class UserController {
         //3.保存数据
         if(rightName && rightPassword && rightStudentId && rightAge && rightPhone && rightEmail){
 
-            String imageURL = null;
-            if(head_image!=null){
-                //接收头像链接
-                userHeadImageList = uploadFileService.uploadUserHeadImage(head_image);
-                //相对链接 0 原图 ，1 压缩图
-                imageURL = userHeadImageList.get(1);
-            }
-
             //封装对象
             Users user = new Users();
             user.setUserName(name);
@@ -162,7 +154,7 @@ public class UserController {
             user.setUserEmail(email);
             user.setUserStatus(status);
             user.setUserRemark(remark);
-            user.setUserHeadImage(imageURL);
+            user.setUserHeadImage(head_image);
 
             userService.addUser(user);
 
@@ -210,7 +202,7 @@ public class UserController {
      * @throws IOException
      */
     @PostMapping("/modifyUser")
-    public ResultVO addUser(Integer id,String name, String password, String student_id, Integer age, String gender, String phone, String email, Integer status, String remark, MultipartFile head_image) throws IOException {
+    public ResultVO addUser(Integer id,String name, String password, String student_id, Integer age, String gender, String phone, String email, Integer status, String remark, String head_image) throws IOException {
 
         //1.验证必须参数
         boolean rightName = false;
@@ -242,16 +234,6 @@ public class UserController {
         //3.保存数据
         if(rightName && rightPassword && rightStudentId && rightAge && rightPhone && rightEmail){
 
-            String imageURL = null;
-            if(head_image!=null){
-
-                //接收头像链接
-                userHeadImageList = uploadFileService.uploadUserHeadImage(head_image);
-
-                //相对链接 0 原图 ，1 压缩图
-                imageURL = userHeadImageList.get(1);
-            }
-
             //封装对象
             Users user = new Users();
             user.setUserId(id);
@@ -264,7 +246,7 @@ public class UserController {
             user.setUserEmail(email);
             user.setUserStatus(status);
             user.setUserRemark(remark);
-            user.setUserHeadImage(imageURL);
+            user.setUserHeadImage(head_image);
 
             userService.updateUser(user);
 

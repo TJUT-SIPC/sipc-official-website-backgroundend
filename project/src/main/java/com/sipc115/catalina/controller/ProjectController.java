@@ -34,25 +34,19 @@ public class ProjectController {
 
     /**
      * 1.修改一条项目
-     * @param id    项目id
-     * @param description   项目描述
-     * @param time  项目时间
-     * @param image 项目图片
-     * @param request   http请求
-     * @return ResultVO
+     * @param id                项目id
+     * @param description       项目描述
+     * @param time              项目时间
+     * @param rawImageURL       原图URL
+     * @param compressImageURL  压缩图URL
+     * @param request           http请求
+     * @return                  ResultVO
      * @throws IOException
      */
     @PostMapping("/modifyProject")
-    public ResultVO updateProject(Integer id , String description, Date time, MultipartFile image, HttpServletRequest request) throws IOException {
+    public ResultVO updateProject(Integer id , String description, Date time, String rawImageURL, String compressImageURL, HttpServletRequest request) throws IOException {
 
-        if(image!=null && description!=null && !description.trim().isEmpty() && time!=null){
-
-            //接收原图与压缩图链接集合
-            projectImageList = uploadFileService.uploadProjectImage(image);
-
-            //原图相对链接
-            String rawImageURL = projectImageList.get(0);
-            String compressImageURL = projectImageList.get(1);
+        if(rawImageURL!=null && compressImageURL!=null && description!=null && !description.trim().isEmpty() && time!=null){
 
             //封装对象
             Projects project = new Projects();
@@ -78,12 +72,7 @@ public class ProjectController {
         }
 
         //检测是否上传了图片
-        if(image == null){
-            return new ResultVO(3,"项目图片不能为空");
-        }
-
-        return new ResultVO(0,"success");
-
+        return new ResultVO(3,"项目图片不能为空");
     }
 
     /**
@@ -143,26 +132,16 @@ public class ProjectController {
      * 3.添加一个项目
      * @param description 项目描述
      * @param time  项目时间
-     * @param image 项目图片
+     * @param rawImageURL 项目原图URL
+     * @param compressImageURL 项目压缩图URL
      * @return ResultVO
      * @throws IOException
      */
     @PostMapping("/addProject")
-    public ResultVO addProject(String description, Date time, MultipartFile image) throws IOException {
-
-        System.out.println(description);
-        System.out.println(time);
-        System.out.println(image);
+    public ResultVO addProject(String description, Date time, String rawImageURL, String compressImageURL) throws IOException {
 
         //验证参数
-        if(description!=null && !description.trim().isEmpty() && time!=null && image!=null){
-
-            //接收原图与压缩图链接集合
-            projectImageList = uploadFileService.uploadProjectImage(image);
-
-            //原图相对链接
-            String rawImageURL = projectImageList.get(0);
-            String compressImageURL = projectImageList.get(1);
+        if(description!=null && !description.trim().isEmpty() && time!=null && rawImageURL!=null && compressImageURL!=null){
 
             //封装对象
             Projects project = new Projects();
@@ -187,11 +166,8 @@ public class ProjectController {
         }
 
         //检测是否上传了图片
-        if(image == null){
-            return new ResultVO(3,"项目图片不能为空");
-        }
+        return new ResultVO(3,"项目图片不能为空");
 
-        return null;
     }
 
     /**

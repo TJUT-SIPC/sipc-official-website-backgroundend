@@ -27,7 +27,7 @@ public class UserRepositoryTest {
     @Test
     public void saveTest(){
         Users user = new Users();
-        user.setUserId(10);
+        user.setUserId(9);
         user.setUserEmail("29985986@qq.com");
         user.setUserName("好给力");
         user.setUserPassword("3550620a");

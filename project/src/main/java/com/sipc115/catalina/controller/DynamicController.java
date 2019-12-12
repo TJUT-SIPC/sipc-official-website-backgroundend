@@ -97,7 +97,7 @@ public class DynamicController {
         if(pageSize>100) pageSize=100;
 
         //1.分页查询所有动态
-        List<Dynamics> dynamicList = dynamicService.findAll(page, pageSize);
+        List<Dynamics> dynamicList = dynamicService.findAll(page - 1, pageSize);
 
         //2.数据组装
         DynamicListVO dynamicListVO = new DynamicListVO();
@@ -184,37 +184,29 @@ public class DynamicController {
 
     /**
      * 4.通过id修改动态
-     * @param id        要修改的动态id
-     * @param image     图片
-     * @param header    标题
-     * @param text      内容
-     * @param editor    编辑者
-     * @param category  分类编号
+     * @param id                要修改的动态id
+     * @param image          原图URL
+     * @param header            标题
+     * @param text              内容
+     * @param editor            编辑者
+     * @param category          分类编号
      * @return
      * @throws IOException
      */
     @PostMapping("/dynamicCenter/modifyDynamic")
-    public ResultVO modifyDynamic(Integer id, MultipartFile image, String header, String text, String editor, Integer category) throws IOException {
+    public ResultVO modifyDynamic(Integer id, String image, String header, String text, String editor, Integer category) throws IOException {
 
         //1.验证必须参数
-        boolean rightHeader = (header != null) && (header.length()<=50);
-        boolean rightText = (text != null);
+        boolean rightHeader = (header != null) && (header.length()<=50 && !header.trim().isEmpty());
+        boolean rightText = (text != null && !text.trim().isEmpty());
 
         //2.保存数据
         if(rightHeader && rightText ){
 
-            String imageURL = null;
-            if(image!=null){
-                //接收动态图片链接
-                dynamicHeadImageList = uploadFileService.uploadDynamicImage(image);
-                //相对链接 0 原图 ，1 压缩图
-                imageURL = dynamicHeadImageList.get(0);
-            }
-
             //封装对象
             Dynamics dynamic = new Dynamics();
             dynamic.setDynamicId(id);
-            dynamic.setDynamicImage(imageURL);
+            dynamic.setDynamicImage(image);
             dynamic.setDynamicHeader(header);
             dynamic.setDynamicText(text);
             dynamic.setDynamicEditor(editor);

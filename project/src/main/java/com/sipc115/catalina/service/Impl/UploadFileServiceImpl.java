@@ -52,15 +52,16 @@ public class UploadFileServiceImpl implements UploadFileService {
         projectImage.transferTo(new File( newRawPath));
 
         //压缩图片
-        Thumbnails.of(newRawPath).scale(0.12f).toFile(newCompressPath);
+        Thumbnails.of(newRawPath).scale(0.6f).toFile(newCompressPath);
 
         //返回原图与压缩图相对服务器链接集合
         String rawURL = newRawPath.substring(newRawPath.indexOf("sipc115_resources"),newRawPath.length());
         String compressURL = newCompressPath.substring(newCompressPath.indexOf("sipc115_resources"),newCompressPath.length());
 
         List<String> projectImageURLList = new ArrayList<>();
-        projectImageURLList.add(rawURL);
+
         projectImageURLList.add(compressURL);
+        projectImageURLList.add(rawURL);
 
         return projectImageURLList;
     }
@@ -104,8 +105,9 @@ public class UploadFileServiceImpl implements UploadFileService {
         String compressURL = newCompressPath.substring(newCompressPath.indexOf("sipc115_resources"),newCompressPath.length());
 
         List<String> userHeadImageURLlist = new ArrayList();
-        userHeadImageURLlist.add(rawURL);
+
         userHeadImageURLlist.add(compressURL);
+        userHeadImageURLlist.add(rawURL);
 
         return userHeadImageURLlist;
     }
@@ -148,8 +150,8 @@ public class UploadFileServiceImpl implements UploadFileService {
         String compressURL = newCompressPath.substring(newCompressPath.indexOf("sipc115_resources"),newCompressPath.length());
 
         List<String> dynamicImageURLList = new ArrayList();
-        dynamicImageURLList.add(rawURL);
         dynamicImageURLList.add(compressURL);
+        dynamicImageURLList.add(rawURL);
 
         return dynamicImageURLList;
     }
