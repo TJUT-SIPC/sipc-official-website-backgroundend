@@ -13,4 +13,6 @@ public interface UploadFileService {
     /**上传项目图片*/
     List<String> uploadProjectImage(MultipartFile upload) throws IOException;
 
+    /**上传用户头像*/
+    List<String> uploadUserHeadImage(MultipartFile upload) throws IOException;
 }

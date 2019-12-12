@@ -82,11 +82,6 @@ public class ProjectController {
             return new ResultVO(3,"项目图片不能为空");
         }
 
-        //检测图片大小是否超过10MB
-        if(image.getSize() > Math.pow(10,7)){
-            return new ResultVO(4,"图片大小超过限制");
-        }
-
         return new ResultVO(0,"success");
 
     }
@@ -196,12 +191,7 @@ public class ProjectController {
             return new ResultVO(3,"项目图片不能为空");
         }
 
-        //检测图片大小是否超过10MB
-        if(image.getSize() > Math.pow(10,7)){
-            return new ResultVO(4,"图片大小超过限制");
-        }
-
-        return new ResultVO(0,"success");
+        return null;
     }
 
     /**
