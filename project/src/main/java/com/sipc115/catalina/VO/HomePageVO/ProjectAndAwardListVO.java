@@ -1,6 +1,7 @@
 package com.sipc115.catalina.VO.HomePageVO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sipc115.catalina.VO.AwardVO.AwardListInfoVO;
 import lombok.Data;
 
 import java.util.List;
@@ -15,6 +16,6 @@ public class ProjectAndAwardListVO {
     private List<HomeProjectListInfoVO> homeProjectListInfoVOList;
 
     @JsonProperty("award_list")
-    private List<HomeAwardListInfoVO> homeAwardListInfoVOList;
+    private List<AwardListInfoVO> awardListInfoVOList;
 
 }

@@ -1,6 +1,6 @@
 package com.sipc115.catalina.controller;
 
-import com.sipc115.catalina.VO.HomePageVO.HomeAwardListInfoVO;
+import com.sipc115.catalina.VO.AwardVO.AwardListInfoVO;
 import com.sipc115.catalina.VO.ProjectVO.ProjectImageVO;
 import com.sipc115.catalina.VO.HomePageVO.HomeProjectListInfoVO;
 import com.sipc115.catalina.VO.HomePageVO.ProjectAndAwardListVO;
@@ -46,7 +46,7 @@ public class HomePageController {
 
         List<HomeProjectListInfoVO> homeProjectListInfoVOList = new ArrayList();
 
-        List<HomeAwardListInfoVO> homeAwardListInfoVOList = new ArrayList();
+        List<AwardListInfoVO> awardListInfoVOList = new ArrayList();
 
         /**project_list部分组装*/
         for(Projects project : projectList){
@@ -69,14 +69,14 @@ public class HomePageController {
         /**award_list部分组装*/
         for(Awards award : awardList){
             //传入获奖项目id，名称，日期
-            HomeAwardListInfoVO homeAwardListInfoVO = new HomeAwardListInfoVO();
-            homeAwardListInfoVO.setAwardId(award.getAwardId());
-            homeAwardListInfoVO.setAwardName(award.getAwardName());
-            homeAwardListInfoVO.setAwardTime(sdf.format(award.getAwardTime()));
+            AwardListInfoVO awardListInfoVO = new AwardListInfoVO();
+            awardListInfoVO.setAwardId(award.getAwardId());
+            awardListInfoVO.setAwardName(award.getAwardName());
+            awardListInfoVO.setAwardTime(sdf.format(award.getAwardTime()));
 
-            homeAwardListInfoVOList.add(homeAwardListInfoVO);
+            awardListInfoVOList.add(awardListInfoVO);
         }
-        projectAndAwardListVO.setHomeAwardListInfoVOList(homeAwardListInfoVOList);
+        projectAndAwardListVO.setAwardListInfoVOList(awardListInfoVOList);
 
         /**返回ResultVO*/
         ResultVO resultVO = new ResultVO();

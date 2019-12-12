@@ -286,7 +286,7 @@ public class UserController {
     public ResultVO delUser(Integer id){
 
         //1.先删除用户关联的奖项记录
-        userAndAwardService.delAwardByUserId(id);
+        userAndAwardService.delRelationByUserId(id);
         //2.删除一个用户
         userService.delUser(id);
 

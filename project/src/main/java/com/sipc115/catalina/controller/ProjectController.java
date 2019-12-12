@@ -140,10 +140,10 @@ public class ProjectController {
     @PostMapping("/addProject")
     public ResultVO addProject(String description, Date time, String rawImageURL, String compressImageURL) throws IOException {
 
-        //验证参数
+        //1.验证参数
         if(description!=null && !description.trim().isEmpty() && time!=null && rawImageURL!=null && compressImageURL!=null){
 
-            //封装对象
+            //2.封装对象
             Projects project = new Projects();
             project.setProjectDescription(description);
             project.setProjectTime(time);

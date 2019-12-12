@@ -18,6 +18,11 @@ public interface UserAndAwardRepository extends JpaRepository<UserAndAward, Inte
     @Modifying
     @Transactional
     @Query(nativeQuery = true, value = "delete from `users_awards` where user_id=?1")
-    @Override
-    void delete(Integer userId);
+    void deleteByUserId(Integer userId);
+
+
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value = "delete from `users_awards` where award_id=?1")
+    void deleteByAwardId(Integer awardId);
 }

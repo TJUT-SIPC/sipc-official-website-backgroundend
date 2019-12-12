@@ -1,10 +1,10 @@
-package com.sipc115.catalina.VO.HomePageVO;
+package com.sipc115.catalina.VO.AwardVO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class HomeAwardListInfoVO {
+public class AwardListInfoVO {
 
     /**获奖编号*/
     @JsonProperty("id")

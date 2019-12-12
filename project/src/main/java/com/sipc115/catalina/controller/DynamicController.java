@@ -27,16 +27,13 @@ public class DynamicController {
     @Autowired
     private UploadFileService uploadFileService;
 
-    //动态图片集合[原图,压缩图]
-    private List<String> dynamicHeadImageList;
-
     /**
      * 1.网站首页返回动态
      * @param page
      * @return
      */
     @GetMapping("/dynamics")
-    public ResultVO getDynamics(Integer page, HttpServletRequest request){
+    public ResultVO getDynamicsInLimit(Integer page, HttpServletRequest request){
 
         System.out.println("接收到页数"+page);
 
@@ -88,7 +85,7 @@ public class DynamicController {
      * @return
      */
     @GetMapping("/dynamicCenter/getDynamics")
-    public ResultVO resultVO(@RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize, HttpServletRequest request){
+    public ResultVO getAllDynamics(@RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize, HttpServletRequest request){
 
         //日期格式化
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -144,7 +141,7 @@ public class DynamicController {
      * @throws IOException
      */
     @PostMapping("/dynamicCenter/addDynamic")
-    public ResultVO addDynamic(MultipartFile image, String header, String text, String editor, Integer category) throws IOException {
+    public ResultVO addDynamic(String image, String header, String text, String editor, Integer category) throws IOException {
 
         //1.验证必须参数
         boolean rightHeader = (header != null) && (header.length()<=50) && !header.trim().isEmpty();
@@ -153,17 +150,9 @@ public class DynamicController {
         //2.保存数据
         if(rightHeader && rightText){
 
-            String imageURL = null;
-            if(image!=null){
-                //接收动态图片链接
-                dynamicHeadImageList = uploadFileService.uploadDynamicImage(image);
-                //相对链接 0 原图 ，1 压缩图
-                imageURL = dynamicHeadImageList.get(0);
-            }
-
             //封装对象
             Dynamics dynamic = new Dynamics();
-            dynamic.setDynamicImage(imageURL);
+            dynamic.setDynamicImage(image);
             dynamic.setDynamicHeader(header);
             dynamic.setDynamicText(text);
             dynamic.setDynamicEditor(editor);
