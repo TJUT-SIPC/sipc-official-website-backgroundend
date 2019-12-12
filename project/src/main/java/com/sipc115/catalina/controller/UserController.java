@@ -96,8 +96,23 @@ public class UserController {
     }
 
 
+    /**
+     * 2.添加一个用户
+     * @param name          用户名(Y)
+     * @param password      密码(Y)
+     * @param student_id    学号(N)
+     * @param age           年龄(N)
+     * @param gender        性别(N)
+     * @param phone         手机号(N)
+     * @param email         邮箱(N)
+     * @param status        权限(Y)
+     * @param remark        备注(N)
+     * @param head_image    头像(N)
+     * @return ResultVO
+     * @throws IOException
+     */
     @PostMapping("/addUser")
-    public ResultVO addUser(String name, String password, String student_id, Integer age, String gender, String phone, String email, Integer stauts, String remark, MultipartFile head_image) throws IOException {
+    public ResultVO addUser(String name, String password, String student_id, Integer age, String gender, String phone, String email, Integer status, String remark, MultipartFile head_image) throws IOException {
 
         //1.验证必须参数
         boolean rightName = false;
@@ -144,9 +159,10 @@ public class UserController {
             user.setUserPassword(password);
             user.setUserStudentId(student_id);
             user.setUserAge(age);
+            user.setUserGender(gender);
             user.setUserPhone(phone);
             user.setUserEmail(email);
-            user.setUserStatus(stauts);
+            user.setUserStatus(status);
             user.setUserRemark(remark);
             user.setUserHeadImage(imageURL);
 
@@ -173,8 +189,107 @@ public class UserController {
         if(rightEmail == false){
             return new ResultVO(6,"邮箱格式错误");
         }
-        if(head_image.getSize() >= Math.pow(10,7)){
-            return new ResultVO(7,"图片大小超过限制");
+
+        return null;
+
+    }
+
+
+    /**
+     * 3.通过id修改一个用户信息
+     * @param id            要修改的用户id
+     * @param name          修改后的用户名
+     * @param password      修改后的密码
+     * @param student_id    修改后的学号
+     * @param age           修改后的年龄
+     * @param gender        修改后的性别
+     * @param phone         修改后的手机号
+     * @param email         修改后的邮箱
+     * @param status        修改后的权限
+     * @param remark        修改后的备注
+     * @param head_image    修改后的头像
+     * @return ResultVO
+     * @throws IOException
+     */
+    @PostMapping("/modifyUser")
+    public ResultVO addUser(Integer id,String name, String password, String student_id, Integer age, String gender, String phone, String email, Integer status, String remark, MultipartFile head_image) throws IOException {
+
+        //1.验证必须参数
+        boolean rightName = false;
+        boolean rightPassword = false;
+
+        String nameRegex = "^[\\u4e00-\\u9fff\\wa-zA-Z0-9_-]{5,13}$";     //描述：5到13位(汉子，字母，数字，下划线，减号)
+        String passwordRegex = "^(\\w){6,20}$";         //6到20位(字母，数字，下划线)
+
+        if (name!=null && name.matches(nameRegex)) rightName = true;
+        if (password!=null && password.matches(passwordRegex)) rightPassword = true;
+        if ( status < UserStatusEnum.NORMAL.getCode() || status > UserStatusEnum.ROOT.getCode()) status = UserStatusEnum.NORMAL.getCode();
+
+        //2.验证不必须参数
+        boolean rightStudentId = false;
+        boolean rightAge = false;
+        boolean rightPhone = false;
+        boolean rightEmail = false;
+
+        String studentIdRegex = "^[0-9]{8}$";                   //8位数字
+        String ageRegex = "^(?:[1-9][0-9]?|1[01][0-9]|120)$";   //1到120的整数
+        String phoneRegex = "^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\\d{8}$";
+        String emailRegex = "^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,})$";
+
+        rightStudentId = (student_id == null) || student_id.matches(studentIdRegex);
+        rightAge = (age == null) || age.toString().matches(ageRegex);
+        rightPhone = (phone == null) || phone.matches(phoneRegex);
+        rightEmail = (email == null) || email.matches(emailRegex);
+
+        //3.保存数据
+        if(rightName && rightPassword && rightStudentId && rightAge && rightPhone && rightEmail){
+
+            String imageURL = null;
+            if(head_image!=null){
+
+                //接收头像链接
+                userHeadImageList = uploadFileService.uploadUserHeadImage(head_image);
+
+                //相对链接 0 原图 ，1 压缩图
+                imageURL = userHeadImageList.get(1);
+            }
+
+            //封装对象
+            Users user = new Users();
+            user.setUserId(id);
+            user.setUserName(name);
+            user.setUserPassword(password);
+            user.setUserStudentId(student_id);
+            user.setUserAge(age);
+            user.setUserGender(gender);
+            user.setUserPhone(phone);
+            user.setUserEmail(email);
+            user.setUserStatus(status);
+            user.setUserRemark(remark);
+            user.setUserHeadImage(imageURL);
+
+            userService.updateUser(user);
+
+            return new ResultVO(0,"success");
+
+        }
+        if(rightName == false){
+            return new ResultVO(1,"用户名格式错误");
+        }
+        if(rightPassword == false){
+            return new ResultVO(2,"密码格式错误");
+        }
+        if(rightStudentId == false){
+            return new ResultVO(3,"学号格式错误");
+        }
+        if(rightAge == false){
+            return new ResultVO(4,"年龄超出范围");
+        }
+        if(rightPhone == false){
+            return new ResultVO(5, "手机号码格式错误");
+        }
+        if(rightEmail == false){
+            return new ResultVO(6,"邮箱格式错误");
         }
 
         return null;
@@ -183,7 +298,7 @@ public class UserController {
 
 
     /**
-     * 通过id删除一个用户
+     * 4.通过id删除一个用户
      * @param id 要删除的用户id
      * @return
      */
