@@ -852,7 +852,7 @@
     "code": 0,
     "msg": "success",
     "data": {
-        "image_raw": null,			//不反回头像原图链接
+        "image_raw": null,			//不反回头像原图
         "image_compress": "url"	//压缩图相对链接，需要保存到服务器
     }
 }
@@ -883,7 +883,8 @@
     "msg": "success",
     "data": {
         "image_raw": "url",			//原图相对链接，需要保存到服务器
-        "image_compress": null	//动态图不反回压缩图链接
+        "image_compress": null	//不反回动态压缩图
     }
 }
 ~~~
+
