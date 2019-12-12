@@ -41,21 +41,35 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 3.更新用户信息
+     * 3.分页查询不同权限用户
+     * @param userStatus   用户权限代码
+     * @param pageNum   页数
+     * @param pageSize  一页显示多少条
+     * @return
+     */
+    @Override
+    public List<Users> findAllByUserStatus(Integer userStatus, Integer pageNum, Integer pageSize) {
+        Pageable pageable = new PageRequest(pageNum, pageSize);
+        Page<Users> page = userRepository.findAllByStatus(userStatus, pageable);
+        return page.getContent();
+    }
+
+    /**
+     * 4.更新用户信息
      * @param user 用户对象
      * @return 若成功返回1
      */
     @Override
     public int updateUser(Users user) {
         int msg = userRepository.updateUserById(user.getUserId(),user.getUserName(),user.getUserPassword(),
-                user.getUserAge(),user.getUserGender(),user.getUserPhone(),
+                user.getUserStudentId() ,user.getUserAge(),user.getUserGender(),user.getUserPhone(),
                 user.getUserEmail(),user.getUserLastLogin(),user.getUserStatus(),
                 user.getUserRemark(),user.getUserHeadImage());
         return msg;
     }
 
     /**
-     * 4.添加新用户
+     * 5.添加新用户
      * @param user 用户对象
      * @return  用户对象
      */
@@ -65,7 +79,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 5.通过id删除一个用户
+     * 6.通过id删除一个用户
      * @param userId 用户id
      */
     @Override

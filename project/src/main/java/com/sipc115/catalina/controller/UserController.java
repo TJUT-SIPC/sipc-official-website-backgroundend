@@ -4,6 +4,7 @@ import com.sipc115.catalina.VO.ResultVO;
 import com.sipc115.catalina.VO.UserVO.UserListInfoVO;
 import com.sipc115.catalina.VO.UserVO.UserListVO;
 import com.sipc115.catalina.dataobject.Users;
+import com.sipc115.catalina.enums.UserStatusEnum;
 import com.sipc115.catalina.service.UserAndAwardService;
 import com.sipc115.catalina.service.UserService;
 import com.sipc115.catalina.utils.URLUtil;
@@ -25,14 +26,30 @@ public class UserController {
     @Autowired
     private UserAndAwardService userAndAwardService;
 
+    /**
+     * 1.分页获取所有用户
+     * @param page 当前查询页数
+     * @param pageSize  一页显示多少条
+     * @param status 查询特定类用户[0普通用户，1管理员，2超级管理员，3全部查询]
+     * @param request
+     * @return
+     */
     @GetMapping("/getUsers")
-    public ResultVO getUsers(@RequestParam("page")Integer page, @RequestParam("pageSize")Integer pageSize , HttpServletRequest request){
+    public ResultVO getUsers(@RequestParam("page")Integer page, @RequestParam("pageSize")Integer pageSize ,@RequestParam("status") Integer status, HttpServletRequest request){
 
         //日期格式化 yyyy-MM-dd HH:mm:ss
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+        if(pageSize<5) pageSize=5;
+        if(pageSize>100) pageSize=100;
+
         //1.分页查询所有用户
-        List<Users> userList = userService.findAll(page - 1,pageSize);
+        List<Users> userList;
+        if(status >= UserStatusEnum.NORMAL.getCode() && status <=UserStatusEnum.ROOT.getCode()){
+            userList = userService.findAllByUserStatus(status, page - 1, pageSize);
+        }else{
+            userList = userService.findAll(page - 1, pageSize);
+        }
 
         //2.数据组装
         UserListVO userListVO = new UserListVO();
@@ -45,6 +62,7 @@ public class UserController {
             userListInfoVO.setUserId(user.getUserId());
             userListInfoVO.setUserName(user.getUserName());
             userListInfoVO.setUserPassword(user.getUserPassword());
+            userListInfoVO.setUserStudentId(user.getUserStudentId());
             userListInfoVO.setUserAge(user.getUserAge());
             userListInfoVO.setUserGender(user.getUserGender());
             userListInfoVO.setUserPhone(user.getUserPhone());

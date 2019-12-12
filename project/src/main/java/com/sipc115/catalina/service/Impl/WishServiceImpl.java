@@ -36,7 +36,7 @@ public class WishServiceImpl implements WishService {
     }
 
     /**
-     * 3.通过寄语审核状态查询+分页
+     * 3.分页查询不同状态寄语
      * @param wishStatus 寄语状态代码
      * @param pageNum   页数
      * @param pageSize  一页显示多少条

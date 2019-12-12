@@ -17,6 +17,9 @@ public interface UserService {
     /**分页查询所有用户*/
     List<Users> findAll(Integer pageNum, Integer pageSize);
 
+    /**分页查询不同权限用户*/
+    List<Users> findAllByUserStatus(Integer userStatus, Integer pageNum, Integer pageSize);
+
     /**修改用户*/
     int updateUser(Users user);
 

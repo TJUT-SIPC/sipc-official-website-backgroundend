@@ -23,6 +23,8 @@ public class Users {
     private String userName;
     /**用户密码*/
     private String userPassword;
+    /**学号*/
+    private String userStudentId;
     /**年龄*/
     private Integer userAge;
     /**性别*/

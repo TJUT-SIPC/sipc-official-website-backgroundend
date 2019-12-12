@@ -14,6 +14,8 @@ public class UserListInfoVO {
     private String userName;
     @JsonProperty("password")
     private String userPassword;
+    @JsonProperty("student_id")
+    private String userStudentId;
     @JsonProperty("age")
     private Integer userAge;
     @JsonProperty("gender")
