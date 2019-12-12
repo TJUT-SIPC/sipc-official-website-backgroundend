@@ -579,7 +579,7 @@
 | text     | Y        | 动态内容 |
 | time     | N        | 动态时间 |
 | editor   | N        | 发布者   |
-| catagory | N        | 分类编号 |
+| category | N        | 分类编号 |
 
 返回
 
