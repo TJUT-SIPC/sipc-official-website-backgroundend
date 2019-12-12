@@ -145,10 +145,8 @@ public class UserController {
 
             String imageURL = null;
             if(head_image!=null){
-
                 //接收头像链接
                 userHeadImageList = uploadFileService.uploadUserHeadImage(head_image);
-
                 //相对链接 0 原图 ，1 压缩图
                 imageURL = userHeadImageList.get(1);
             }
@@ -171,22 +169,22 @@ public class UserController {
             return new ResultVO(0,"success");
 
         }
-        if(rightName == false){
+        if(!rightName){
             return new ResultVO(1,"用户名格式错误");
         }
-        if(rightPassword == false){
+        if(!rightPassword){
             return new ResultVO(2,"密码格式错误");
         }
-        if(rightStudentId == false){
+        if(!rightStudentId){
             return new ResultVO(3,"学号格式错误");
         }
-        if(rightAge == false){
+        if(!rightAge){
             return new ResultVO(4,"年龄超出范围");
         }
-        if(rightPhone == false){
+        if(!rightPhone){
             return new ResultVO(5, "手机号码格式错误");
         }
-        if(rightEmail == false){
+        if(!rightEmail){
             return new ResultVO(6,"邮箱格式错误");
         }
 

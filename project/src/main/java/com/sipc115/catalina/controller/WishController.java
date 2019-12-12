@@ -147,6 +147,12 @@ public class WishController {
 
     }
 
+    /**
+     * 4.修改寄语审核状态
+     * @param id        寄语id
+     * @param status    审核状态
+     * @return
+     */
     @PostMapping("/wishCenter/modifyWish")
     public ResultVO modifyWish(Integer id , Integer status){
 
@@ -159,6 +165,11 @@ public class WishController {
 
     }
 
+    /**
+     * 5.删除一条寄语
+     * @param id    寄语id
+     * @return      ResultVO
+     */
     @PostMapping("/wishCenter/delWish")
     public ResultVO delWish(Integer id){
         wishService.delWish(id);

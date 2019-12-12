@@ -15,4 +15,7 @@ public interface UploadFileService {
 
     /**上传用户头像*/
     List<String> uploadUserHeadImage(MultipartFile upload) throws IOException;
+
+    /**上传动态图片*/
+    List<String> uploadDynamicImage(MultipartFile upload) throws IOException;
 }
