@@ -58,6 +58,43 @@
 
 
 
+### 通过id查询
+
+[POST]/userCenter/getUserById
+
+参数
+
+id 必须
+
+返回
+
+
+~~~ 
+{
+    "code": 0,
+    "msg": "success",
+    "data": {
+        "id": 30,
+        "name": "admin",
+        "password": "admin",
+        "student_id": null,
+        "age": null,
+        "gender": null,
+        "phone": null,
+        "email": null,
+        "create_time": "2019-12-14 07:28:20",
+        "last_login": null,
+        "status": 2,
+        "remark": null,
+        "head_image": "http://localhost:8082/null"
+    }
+}
+~~~
+
+
+
+
+
 ### 修改用户信息
 
 [POST] / userCenter / modifyUser
@@ -828,14 +865,37 @@
 
 ~~~
 {
-	"code":0,
-	"msg":"success",
-	"data":null
+    "code": 1000,
+    "msg": "success",
+    "data": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhZG1pbiIsImlhdCI6MTU3NjI0Nzg0Nywic3ViIjoiIiwiaXNzIjoic2lwYzExNS5jb20iLCJleHAiOjE1NzY4NTI2NDd9.pyJm1TLJ3Q6OZ2qcQEDQD_ghvXcC6aA8f-2kpOexzqc"			//返回一个token，前端将其以"sipc-token"为名放入headers中
 }
 
 {
-	"code":1,
-	"msg":"用户名或密码错误"
+    "code": 1001,
+    "msg": "用户不存在",
+    "data": null
+}
+
+{
+    "code": 1002,
+    "msg": "密码错误",
+    "data": null
+}
+~~~
+
+
+
+### 2.注销
+
+[POST] / logout
+
+返回
+
+~~~ 
+{
+    "code": 0,
+    "msg": "success",
+    "data": null
 }
 ~~~
 
