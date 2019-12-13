@@ -7,6 +7,9 @@ spring:
   jpa:
     show-sql: true
 
+  aop:
+    auto: true
+
   redis:
     host: localhost
     port: 6379

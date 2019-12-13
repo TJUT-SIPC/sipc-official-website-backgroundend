@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
 
 public class AuthenticationInterceptor implements HandlerInterceptor {
@@ -91,6 +92,10 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 //根据用户名查找用户
                 Users user = new Users();
                 user = userService.findOneByUserName(claims.getId());
+
+                //设置session
+                HttpSession session = request.getSession();
+                session.setAttribute("userId",user.getUserId());
 
                 if(user == null){
                     response.setStatus(401);

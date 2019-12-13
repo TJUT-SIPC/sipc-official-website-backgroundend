@@ -24,46 +24,7 @@ public class MessageController {
     @Autowired
     private MessageBoardService messageBoardService;
 
-    /**
-     * 1.首页上传留言功能
-     * @param email     联系邮箱
-     * @param nickname  昵称
-     * @param advice    建议
-     * @return
-     */
-    @PostMapping("/sendMessage")
-    public ResultVO sendMessage(String email, String nickname, String advice){
 
-        /**验证参数*/
-        boolean rightEmail = false;
-        String emailRegex = "^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,})$";
-
-        if(email.matches(emailRegex)){
-            rightEmail = true;
-        }
-
-        if(rightEmail && nickname!=null && !nickname.trim().isEmpty() && advice!=null && !advice.trim().isEmpty() ) {
-            /**保存建议*/
-            MessageBoard message = new MessageBoard();
-            message.setBoardEmail(email);
-            message.setBoardNickname(nickname);
-            message.setBoardAdvice(advice);
-            messageBoardService.addMessage(message);
-
-            return new ResultVO(0,"success");
-        }
-        if(!rightEmail){
-            return new ResultVO(1,"邮箱格式错误");
-        }
-        if(nickname==null || nickname.trim().isEmpty()){
-            return new ResultVO(2,"名字不能为空");
-        }
-        if(advice==null || advice.trim().isEmpty()){
-            return new ResultVO(3,"建议不能为空");
-        }
-
-        return new ResultVO(0,"提交成功");
-    }
 
     /**
      * 2.分页查询所有留言功能

@@ -53,7 +53,10 @@ public class AwardController {
             AwardListInfoVO awardListInfoVO = new AwardListInfoVO();
             awardListInfoVO.setAwardId(award.getAwardId());
             awardListInfoVO.setAwardName(award.getAwardName());
-            awardListInfoVO.setAwardTime(sdf.format(award.getAwardTime()));
+
+            if(award.getAwardTime()!=null){
+                awardListInfoVO.setAwardTime(sdf.format(award.getAwardTime()));
+            }
 
             awardListInfoVOList.add(awardListInfoVO);
         }

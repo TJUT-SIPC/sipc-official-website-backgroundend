@@ -21,75 +21,7 @@ public class WishController {
     @Autowired
     private WishService wishService;
 
-    /**
-     * 1.随机返回15条寄语
-     * @return ResultVO
-     */
-    @GetMapping("/wishes")
-    public ResultVO getWishesInHomePage(){
 
-        //1.随机查询15条已发布寄语
-        List<Wishes> wishList = wishService.findWishesByLimit(15);
-
-        //2.数据组装
-
-        WishListVO wishListVO = new WishListVO();
-
-        List<WishListInfoVO> wishListInfoVOList = new ArrayList();
-
-        for(Wishes wish : wishList){
-
-            WishListInfoVO wishListInfoVO = new WishListInfoVO();
-
-            //传入id，name，word
-            wishListInfoVO.setWishId(wish.getWishId());
-            wishListInfoVO.setWishName(wish.getWishName());
-            wishListInfoVO.setWishWord(wish.getWishWord());
-
-            wishListInfoVOList.add(wishListInfoVO);
-        }
-
-        wishListVO.setWishListInfoVOList(wishListInfoVOList);
-        wishListVO.setTotal_wishes(wishListInfoVOList.size());
-
-        /**返回ResultVO*/
-        ResultVO resultVO = new ResultVO();
-        resultVO.setCode(0);
-        resultVO.setMsg("success");
-        resultVO.setData(wishListVO);
-
-        return resultVO;
-
-    }
-
-    /**
-     * 2.上传一条寄语
-     * @param name 写寄语的人名
-     * @param word 寄语内容
-     * @return ResultVO
-     */
-    @PostMapping("/sendWishes")
-    public ResultVO sendWish(String name, String word){
-
-        /**验证参数*/
-        if(name!=null && !name.trim().isEmpty() && word!=null && !word.trim().isEmpty()){
-            /**保存寄语*/
-            Wishes wish = new Wishes();
-            wish.setWishName(name);
-            wish.setWishWord(word);
-            wishService.addWish(wish);
-
-            return new ResultVO(0,"success");
-        }
-        if(name == null || name.trim().isEmpty()){
-            return new ResultVO(1,"人名不能为空");
-        }
-        if(word == null || word.trim().isEmpty()){
-            return new ResultVO(2,"寄语不能为空");
-        }
-
-        return new ResultVO(0,"success");
-    }
 
     /**
      * 3.查询所有寄语

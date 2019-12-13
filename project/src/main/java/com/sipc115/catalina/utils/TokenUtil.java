@@ -1,5 +1,6 @@
 package com.sipc115.catalina.utils;
 
+import com.sipc115.catalina.configuration.UserConstants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -23,7 +24,7 @@ public class TokenUtil {
     /**
      * 过期时间
      */
-    public static final long ttlMillis = 3600*1000*60;
+    public static final long ttlMillis = UserConstants.REDIS_TIME;
 
     /**
      * 生成Token

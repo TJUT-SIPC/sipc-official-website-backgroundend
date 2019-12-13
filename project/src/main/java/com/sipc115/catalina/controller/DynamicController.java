@@ -28,58 +28,9 @@ public class DynamicController {
     @Autowired
     private UploadFileService uploadFileService;
 
-    /**
-     * 1.网站首页返回动态
-     * @param page
-     * @return
-     */
-
-    @GetMapping("/dynamics")
-    public ResultVO getDynamicsInLimit(Integer page, HttpServletRequest request){
-
-        //日期格式化 yyyy/M/d
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/M/d");
-
-        //1.分页查询动态，一页5条
-        List<Dynamics> dynamicList = dynamicService.findAll(page,5);
-
-        //2.数据组装
-
-        DynamicListVO dynamicListVO = new DynamicListVO();
-
-        List<DynamicListInfoVO> dynamicListInfoVOList = new ArrayList();
-
-        for(Dynamics dynamic : dynamicList){
-
-            DynamicListInfoVO dynamicListInfoVO = new DynamicListInfoVO();
-
-            //传入动态id，image，header，text，time，editor，category
-            dynamicListInfoVO.setDynamicId(dynamic.getDynamicId());
-            dynamicListInfoVO.setDynamicImage(URLUtil.getLocalhostURL(request) + dynamic.getDynamicImage());
-            dynamicListInfoVO.setDynamicHeader(dynamic.getDynamicHeader());
-            dynamicListInfoVO.setDynamicText(dynamic.getDynamicText());
-            dynamicListInfoVO.setDynamicTime(sdf.format(dynamic.getDynamicTime()));
-            dynamicListInfoVO.setDynamicEditor(dynamic.getDynamicEditor());
-            dynamicListInfoVO.setDynamicCategory(dynamic.getDynamicCategory());
-
-            dynamicListInfoVOList.add(dynamicListInfoVO);
-        }
-
-        dynamicListVO.setDynamicListInfoVOList(dynamicListInfoVOList);
-        dynamicListVO.setTotalPage(dynamicListInfoVOList.size());
-
-        /**返回ResultVO*/
-        ResultVO resultVO = new ResultVO();
-        resultVO.setCode(0);
-        resultVO.setMsg("success");
-        resultVO.setData(dynamicListVO);
-
-        return resultVO;
-    }
-
 
     /**
-     * 2.分页返回所有动态
+     * 1.分页返回所有动态
      * @param page      页数
      * @param pageSize  一页返回多少条
      * @return
@@ -132,7 +83,7 @@ public class DynamicController {
 
 
     /**
-     * 3.添加一条动态 (是否必须)
+     * 2.添加一条动态 (是否必须)
      * @param image     动态图片(N)
      * @param header    动态标题(Y)
      * @param text      动态内容(Y)
@@ -174,7 +125,7 @@ public class DynamicController {
     }
 
     /**
-     * 4.通过id修改动态
+     * 3.通过id修改动态
      * @param id                要修改的动态id
      * @param image          原图URL
      * @param header            标题
@@ -223,7 +174,7 @@ public class DynamicController {
 
 
     /**
-     * 5.通过id删除一条动态
+     * 4.通过id删除一条动态
      * @param id   动态id
      * @return
      */
