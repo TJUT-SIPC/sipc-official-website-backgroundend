@@ -27,7 +27,7 @@ public class MessageController {
 
 
     /**
-     * 2.分页查询所有留言功能
+     * 1.分页查询所有留言功能
      * @param page      当前页数
      * @param pageSize  一页查询多少条
      * @return
@@ -77,7 +77,7 @@ public class MessageController {
     }
 
     /**
-     * 3.通过id删除一条留言
+     * 2.通过id删除一条留言
      * @param id
      * @return
      */

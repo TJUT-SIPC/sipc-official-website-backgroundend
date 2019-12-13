@@ -5,7 +5,6 @@ import com.sipc115.catalina.VO.AwardVO.AwardListVO;
 import com.sipc115.catalina.VO.ResultVO;
 import com.sipc115.catalina.annotation.LoginRequired;
 import com.sipc115.catalina.dataobject.Awards;
-import com.sipc115.catalina.dataobject.UserAndAward;
 import com.sipc115.catalina.service.AwardService;
 import com.sipc115.catalina.service.UserAndAwardService;
 import org.springframework.beans.factory.annotation.Autowired;

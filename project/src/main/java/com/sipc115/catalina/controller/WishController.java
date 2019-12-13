@@ -24,7 +24,7 @@ public class WishController {
 
 
     /**
-     * 3.查询所有寄语
+     * 1.查询所有寄语
      * @param page
      * @param pageSize
      * @param status
@@ -82,7 +82,7 @@ public class WishController {
     }
 
     /**
-     * 4.修改寄语审核状态
+     * 2.修改寄语审核状态
      * @param id        寄语id
      * @param status    审核状态
      * @return
@@ -100,7 +100,7 @@ public class WishController {
     }
 
     /**
-     * 5.删除一条寄语
+     * 3.删除一条寄语
      * @param id    寄语id
      * @return      ResultVO
      */

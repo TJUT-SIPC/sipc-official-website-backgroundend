@@ -54,9 +54,10 @@ public class LoginAndLogoutController {
             } else {
                 resultVO.setCode(1002);
                 resultVO.setMsg("密码错误");
+
+                return resultVO;
             }
         }
-        return null;
     }
 
 

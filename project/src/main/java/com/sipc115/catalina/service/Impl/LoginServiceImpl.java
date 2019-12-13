@@ -9,16 +9,23 @@ import com.sipc115.catalina.configuration.UserConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+
 @Service
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private RedisService redisService;
+    @Autowired
+    private HttpSession session;
 
     @Override
     public String login(Users user) {
         //生成token
         String accessToken = TokenUtil.createJwtToken(user.getUserName());
+
+        //写入session
+        session.setAttribute("userId",user.getUserId());
 
         //写入redis
         redisService.set(UserConstants.REDIS_USER + accessToken, JSON.toJSONString(user) , UserConstants.REDIS_TIME);
