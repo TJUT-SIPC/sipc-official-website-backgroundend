@@ -85,6 +85,7 @@ public class DynamicController {
      * @return
      */
     @GetMapping("/dynamicCenter/getDynamics")
+    @LoginRequired
     public ResultVO getAllDynamics(@RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize, HttpServletRequest request){
 
         //日期格式化
@@ -141,6 +142,7 @@ public class DynamicController {
      * @throws IOException
      */
     @PostMapping("/dynamicCenter/addDynamic")
+    @LoginRequired
     public ResultVO addDynamic(String image, String header, String text, String editor, Integer category) throws IOException {
 
         //1.验证必须参数
@@ -183,6 +185,7 @@ public class DynamicController {
      * @throws IOException
      */
     @PostMapping("/dynamicCenter/modifyDynamic")
+    @LoginRequired
     public ResultVO modifyDynamic(Integer id, String image, String header, String text, String editor, Integer category) throws IOException {
 
         //1.验证必须参数
@@ -225,6 +228,7 @@ public class DynamicController {
      * @return
      */
     @PostMapping("/dynamicCenter/delDynamic")
+    @LoginRequired
     public ResultVO delDynamic(Integer id){
 
         //1.删除动态相关图片资源

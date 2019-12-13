@@ -3,6 +3,7 @@ package com.sipc115.catalina.controller;
 import com.sipc115.catalina.VO.MessageVO.MessageListInfoVO;
 import com.sipc115.catalina.VO.MessageVO.MessageListVO;
 import com.sipc115.catalina.VO.ResultVO;
+import com.sipc115.catalina.annotation.LoginRequired;
 import com.sipc115.catalina.dataobject.MessageBoard;
 import com.sipc115.catalina.service.MessageBoardService;
 
@@ -71,6 +72,7 @@ public class MessageController {
      * @return
      */
     @PostMapping("/messageCenter/getMessage")
+    @LoginRequired
     public ResultVO getMessage(Integer page, Integer pageSize){
 
         //日期格式化
@@ -113,6 +115,12 @@ public class MessageController {
         return resultVO;
     }
 
+    /**
+     * 3.通过id删除一条留言
+     * @param id
+     * @return
+     */
+    @LoginRequired
     @PostMapping("/messageCenter/delMessage")
     public ResultVO delMessage(Integer id){
         messageBoardService.delMessage(id);

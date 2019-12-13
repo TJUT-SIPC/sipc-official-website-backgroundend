@@ -3,6 +3,7 @@ package com.sipc115.catalina.controller;
 import com.sipc115.catalina.VO.AwardVO.AwardListInfoVO;
 import com.sipc115.catalina.VO.AwardVO.AwardListVO;
 import com.sipc115.catalina.VO.ResultVO;
+import com.sipc115.catalina.annotation.LoginRequired;
 import com.sipc115.catalina.dataobject.Awards;
 import com.sipc115.catalina.dataobject.UserAndAward;
 import com.sipc115.catalina.service.AwardService;
@@ -33,6 +34,7 @@ public class AwardController {
      * @return
      */
     @PostMapping("/getAllAwards")
+    @LoginRequired
     public ResultVO getAllAwards(Integer page, Integer pageSize){
 
         //日期格式化 yyyy/MM
@@ -75,6 +77,7 @@ public class AwardController {
      * @return         ResultVO
      */
     @PostMapping("/addAward")
+    @LoginRequired
     public ResultVO addAward(String name, Date time){
 
         //1.验证参数
@@ -106,6 +109,7 @@ public class AwardController {
      * @return          ResultVO
      */
     @PostMapping("/modifyAward")
+    @LoginRequired
     public ResultVO modifyAward(Integer id, String name , Date time){
 
         //1.验证参数
@@ -136,6 +140,7 @@ public class AwardController {
      * @return
      */
     @PostMapping("/delAward")
+    @LoginRequired
     public ResultVO delAward(Integer id){
 
         userAndAwardService.delRelationByAwardId(id);

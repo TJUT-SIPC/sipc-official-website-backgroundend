@@ -32,7 +32,6 @@ public class HomePageController {
     private AwardService awardService;
 
     @GetMapping("/")
-    @LoginRequired
     public ResultVO getProjectAndAwardList(HttpServletRequest request){
 
         //日期格式化 yyyy/M

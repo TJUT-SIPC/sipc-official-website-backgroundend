@@ -9,6 +9,6 @@ public class UserConstants {
     /**token的请求头Header*/
     public final static String ACCESS_TOKEN_HEAD = "sipc-token";
     /**若用户点击下次登录，设置redis七天有效期(单位毫秒)*/
-    public final static int REDIS_TIME = 1000*60*60*24*7;
+    public final static long REDIS_TIME = 1000*60*60*24*7;
 
 }

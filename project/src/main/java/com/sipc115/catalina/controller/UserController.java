@@ -3,6 +3,7 @@ package com.sipc115.catalina.controller;
 import com.sipc115.catalina.VO.ResultVO;
 import com.sipc115.catalina.VO.UserVO.UserListInfoVO;
 import com.sipc115.catalina.VO.UserVO.UserListVO;
+import com.sipc115.catalina.annotation.LoginRequired;
 import com.sipc115.catalina.dataobject.Users;
 import com.sipc115.catalina.enums.UserStatusEnum;
 import com.sipc115.catalina.service.UploadFileService;
@@ -41,6 +42,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/getUsers")
+    @LoginRequired
     public ResultVO getUsers(@RequestParam("page")Integer page, @RequestParam("pageSize")Integer pageSize ,@RequestParam("status") Integer status, HttpServletRequest request){
 
         //日期格式化 yyyy-MM-dd HH:mm:ss
@@ -111,6 +113,7 @@ public class UserController {
      * @throws IOException
      */
     @PostMapping("/addUser")
+    @LoginRequired
     public ResultVO addUser(String name, String password, String student_id, Integer age, String gender, String phone, String email, Integer status, String remark, String head_image) throws IOException {
 
         //1.验证必须参数
@@ -201,6 +204,7 @@ public class UserController {
      * @throws IOException
      */
     @PostMapping("/modifyUser")
+    @LoginRequired
     public ResultVO addUser(Integer id,String name, String password, String student_id, Integer age, String gender, String phone, String email, Integer status, String remark, String head_image) throws IOException {
 
         //1.验证必须参数
@@ -289,6 +293,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/delUser")
+    @LoginRequired
     public ResultVO delUser(Integer id){
 
         //1.先删除用户关联的奖项记录

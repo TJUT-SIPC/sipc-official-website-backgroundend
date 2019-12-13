@@ -21,8 +21,9 @@ public class LoginServiceImpl implements LoginService {
         String accessToken = TokenUtil.createJwtToken(user.getUserName());
 
         //写入redis
-        redisService.set(UserConstants.REDIS_USER + accessToken, JSON.toJSONString(user) ,(long) 3600*100000000);
+        redisService.set(UserConstants.REDIS_USER + accessToken, JSON.toJSONString(user) , UserConstants.REDIS_TIME);
 
+        //返回token给前端
         return accessToken;
     }
 }

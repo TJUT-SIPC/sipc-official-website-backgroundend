@@ -4,6 +4,7 @@ import com.sipc115.catalina.VO.ProjectVO.CenterProjectListInfoVO;
 import com.sipc115.catalina.VO.ProjectVO.ProjectImageVO;
 import com.sipc115.catalina.VO.ProjectVO.ProjectListVO;
 import com.sipc115.catalina.VO.ResultVO;
+import com.sipc115.catalina.annotation.LoginRequired;
 import com.sipc115.catalina.dataobject.Projects;
 import com.sipc115.catalina.service.ProjectService;
 import com.sipc115.catalina.service.UploadFileService;
@@ -45,6 +46,7 @@ public class ProjectController {
      * @throws IOException
      */
     @PostMapping("/modifyProject")
+    @LoginRequired
     public ResultVO updateProject(Integer id , String description, Date time, String rawImageURL, String compressImageURL, HttpServletRequest request) throws IOException {
 
         if(rawImageURL!=null && compressImageURL!=null && description!=null && !description.trim().isEmpty() && time!=null){
@@ -89,6 +91,7 @@ public class ProjectController {
      * @return
      */
     @PostMapping("/getProjects")
+    @LoginRequired
     public ResultVO getProjects(Integer page, Integer pageSize, HttpServletRequest request){
 
         System.out.println("pageSize:" + pageSize);
@@ -145,6 +148,7 @@ public class ProjectController {
      * @throws IOException
      */
     @PostMapping("/addProject")
+    @LoginRequired
     public ResultVO addProject(String description, Date time, String rawImageURL, String compressImageURL) throws IOException {
 
         //1.验证参数
@@ -183,6 +187,7 @@ public class ProjectController {
      * @return ResultVO
      */
     @PostMapping("/delProject")
+    @LoginRequired
     public ResultVO delProject(Integer id){
         //1.删除项目相关图片资源
         Projects project = projectService.findOne(id);

@@ -2,6 +2,7 @@ package com.sipc115.catalina.controller;
 
 import com.sipc115.catalina.VO.ImageVO.ImageVO;
 import com.sipc115.catalina.VO.ResultVO;
+import com.sipc115.catalina.annotation.LoginRequired;
 import com.sipc115.catalina.enums.ImageQualityEnum;
 import com.sipc115.catalina.service.UploadFileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class UploadFileController {
      * @return              ResultVO
      */
     @PostMapping("/uploadHeadImage")
+    @LoginRequired
     public ResultVO uploadHeadImage(MultipartFile headImage) throws IOException {
 
         List<String> headImageList = uploadFileService.uploadUserHeadImage(headImage);
@@ -49,6 +51,7 @@ public class UploadFileController {
      * @throws IOException
      */
     @PostMapping("/uploadProjectImage")
+    @LoginRequired
     public ResultVO uploadProjectImage(MultipartFile projectImage) throws IOException {
 
         List<String> projectImageList = uploadFileService.uploadProjectImage(projectImage);
@@ -74,6 +77,7 @@ public class UploadFileController {
      * @return              ResultVO
      */
     @PostMapping("/uploadDynamicImage")
+    @LoginRequired
     public ResultVO uploadDynamicImage(MultipartFile dynamicImage) throws IOException {
 
         List<String> dynamicImageList = uploadFileService.uploadDynamicImage(dynamicImage);
