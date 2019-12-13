@@ -20,6 +20,9 @@ public interface UserRepository extends JpaRepository<Users, Integer> {
     @Override
     Optional<Users> findById(Integer integer);
 
+    /**通过用户名查询一个用户*/
+    Users findByUserName(String username);
+
     @Override
     /**分页查询所有用户*/
     Page<Users> findAll(Pageable pageable);

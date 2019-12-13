@@ -3,6 +3,7 @@ package com.sipc115.catalina.controller;
 import com.sipc115.catalina.VO.ResultVO;
 import com.sipc115.catalina.VO.WishVO.WishListInfoVO;
 import com.sipc115.catalina.VO.WishVO.WishListVO;
+import com.sipc115.catalina.annotation.LoginRequired;
 import com.sipc115.catalina.dataobject.Wishes;
 import com.sipc115.catalina.enums.WishStatusEnum;
 import com.sipc115.catalina.service.WishService;
@@ -49,6 +50,7 @@ public class WishController {
         }
 
         wishListVO.setWishListInfoVOList(wishListInfoVOList);
+        wishListVO.setTotal_wishes(wishListInfoVOList.size());
 
         /**返回ResultVO*/
         ResultVO resultVO = new ResultVO();

@@ -23,13 +23,23 @@ public class UserServiceImpl implements UserService {
      * @return 用户对象
      */
     @Override
-    public Users findeOne(Integer userId) {
+    public Users findOne(Integer userId) {
         return userRepository.findById(userId).get();
+    }
+
+    /**
+     * 2.通过用户名查询一个用户
+     * @param username  用户名
+     * @return
+     */
+    @Override
+    public Users findOneByUserName(String username) {
+        return userRepository.findByUserName(username);
     }
 
     @Override
     /**
-     * 2.分页查询所有用户
+     * 3.分页查询所有用户
      * @param pageNum 页数
      * @param pageSize 一页显示多少条
      * @return 查询到的用户集合
@@ -41,7 +51,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 3.分页查询不同权限用户
+     * 4.分页查询不同权限用户
      * @param userStatus   用户权限代码
      * @param pageNum   页数
      * @param pageSize  一页显示多少条
@@ -55,7 +65,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 4.更新用户信息
+     * 5.更新用户信息
      * @param user 用户对象
      * @return 若成功返回1
      */
@@ -69,7 +79,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 5.添加新用户
+     * 6.添加新用户
      * @param user 用户对象
      * @return  用户对象
      */
@@ -79,7 +89,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 6.通过id删除一个用户
+     * 7.通过id删除一个用户
      * @param userId 用户id
      */
     @Override

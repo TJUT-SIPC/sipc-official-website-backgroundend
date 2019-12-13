@@ -1,6 +1,7 @@
 package com.sipc115.catalina.service.Impl;
 
 import com.sipc115.catalina.dataobject.Users;
+import org.hibernate.annotations.Target;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,12 @@ public class UserServiceImplTest {
 
         userService.addUser(user);
     }
+
+    @Test
+    public void fineOneTest(){
+        System.out.println(userService.findOneByUserName("admin"));
+    }
+
 
     @Test
     public void delTest(){

@@ -5,6 +5,7 @@ import com.sipc115.catalina.VO.ProjectVO.ProjectImageVO;
 import com.sipc115.catalina.VO.HomePageVO.HomeProjectListInfoVO;
 import com.sipc115.catalina.VO.HomePageVO.ProjectAndAwardListVO;
 import com.sipc115.catalina.VO.ResultVO;
+import com.sipc115.catalina.annotation.LoginRequired;
 import com.sipc115.catalina.dataobject.Awards;
 import com.sipc115.catalina.dataobject.Projects;
 import com.sipc115.catalina.service.AwardService;
@@ -31,6 +32,7 @@ public class HomePageController {
     private AwardService awardService;
 
     @GetMapping("/")
+    @LoginRequired
     public ResultVO getProjectAndAwardList(HttpServletRequest request){
 
         //日期格式化 yyyy/M

@@ -11,7 +11,6 @@ import com.sipc115.catalina.service.UserService;
 import com.sipc115.catalina.utils.URLUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -235,7 +234,7 @@ public class UserController {
         if(rightName && rightPassword && rightStudentId && rightAge && rightPhone && rightEmail){
 
 
-            Users user = userService.findeOne(id);
+            Users user = userService.findOne(id);
 
             //若头像更新，删除原有头像图片资源
             if(head_image != null && !head_image.equals(user.getUserHeadImage())){
@@ -296,7 +295,7 @@ public class UserController {
         userAndAwardService.delRelationByUserId(id);
 
         //2.删除用户头像图片资源
-        Users user = userService.findeOne(id);
+        Users user = userService.findOne(id);
         uploadFileService.deleteImage(URLUtil.getVirtualLocalhostPath() + user.getUserHeadImage());
 
         //3.从数据库删除记录

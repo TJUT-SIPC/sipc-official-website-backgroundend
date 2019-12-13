@@ -11,8 +11,11 @@ import java.util.List;
 @Service
 public interface UserService {
 
-    /**单个用户查询*/
-    Users findeOne(Integer userId);
+    /**通过id进行单个用户查询*/
+    Users findOne(Integer userId);
+
+    /**通过用户名进行单个用户查询*/
+    Users findOneByUserName(String username);
 
     /**分页查询所有用户*/
     List<Users> findAll(Integer pageNum, Integer pageSize);

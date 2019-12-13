@@ -37,7 +37,6 @@ public class UserRepositoryTest {
 
     @Test
     public void findOneTest(){
-        System.out.println(repository.findById(3));
     }
 
 }

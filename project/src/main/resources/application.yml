@@ -7,6 +7,10 @@ spring:
   jpa:
     show-sql: true
 
+  redis:
+    host: localhost
+    port: 6379
+
   servlet:
     multipart:
       max-request-size: 100MB
@@ -16,3 +20,4 @@ server:
   port: 8082
   servlet:
     context-path: /
+

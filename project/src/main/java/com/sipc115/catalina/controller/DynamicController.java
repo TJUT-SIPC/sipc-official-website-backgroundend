@@ -3,6 +3,7 @@ package com.sipc115.catalina.controller;
 import com.sipc115.catalina.VO.DynamicVO.DynamicListInfoVO;
 import com.sipc115.catalina.VO.DynamicVO.DynamicListVO;
 import com.sipc115.catalina.VO.ResultVO;
+import com.sipc115.catalina.annotation.LoginRequired;
 import com.sipc115.catalina.dataobject.Dynamics;
 import com.sipc115.catalina.service.DynamicService;
 import com.sipc115.catalina.service.UploadFileService;
@@ -32,10 +33,9 @@ public class DynamicController {
      * @param page
      * @return
      */
+
     @GetMapping("/dynamics")
     public ResultVO getDynamicsInLimit(Integer page, HttpServletRequest request){
-
-        System.out.println("接收到页数"+page);
 
         //日期格式化 yyyy/M/d
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/M/d");
