@@ -38,8 +38,6 @@ public class UserController {
     @PostMapping("/getUserById")
     public ResultVO getUserById(@RequestParam("id") Integer id, HttpServletRequest request){
 
-        System.out.println(id);
-
         //日期格式化 yyyy-MM-dd HH:mm:ss
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -74,7 +72,49 @@ public class UserController {
     }
 
     /**
-     * 2.分页获取所有用户
+     * 2.根据用户名查询一个用户
+     * @param name
+     * @param request
+     * @return
+     */
+    @PostMapping("/getUserByUsername")
+    public ResultVO getUserByUsername(@RequestParam("name") String name, HttpServletRequest request){
+
+        //日期格式化 yyyy-MM-dd HH:mm:ss
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        //1.查询用户
+        Users user = userService.findOneByUserName(name);
+
+        //2.数据组装
+
+        //传入用户信息
+        UserListInfoVO userListInfoVO = new UserListInfoVO();
+        userListInfoVO.setUserId(user.getUserId());
+        userListInfoVO.setUserName(user.getUserName());
+        userListInfoVO.setUserPassword(user.getUserPassword());
+        userListInfoVO.setUserStudentId(user.getUserStudentId());
+        userListInfoVO.setUserAge(user.getUserAge());
+        userListInfoVO.setUserGender(user.getUserGender());
+        userListInfoVO.setUserPhone(user.getUserPhone());
+        userListInfoVO.setUserEmail(user.getUserEmail());
+        userListInfoVO.setUserCreateTime(sdf.format(user.getUserCreateTime()));
+        userListInfoVO.setUserLastLogin((user.getUserLastLogin()!=null)? sdf.format(user.getUserLastLogin()):null);
+        userListInfoVO.setUserStatus(user.getUserStatus());
+        userListInfoVO.setUserRemark(user.getUserRemark());
+        userListInfoVO.setUserHeadImage(URLUtil.getLocalhostURL(request) + user.getUserHeadImage());
+
+        /**返回ResultVO*/
+        ResultVO resultVO = new ResultVO();
+        resultVO.setCode(0);
+        resultVO.setMsg("success");
+        resultVO.setData(userListInfoVO);
+
+        return resultVO;
+    }
+
+    /**
+     * 3.分页获取所有用户
      * @param page 当前查询页数
      * @param pageSize  一页显示多少条
      * @param status 查询特定类用户[0普通用户，1管理员，2超级管理员，3全部查询]
@@ -138,7 +178,7 @@ public class UserController {
 
 
     /**
-     * 3.添加一个用户
+     * 4.添加一个用户
      * @param name          用户名(Y)
      * @param password      密码(Y)
      * @param student_id    学号(N)
@@ -228,7 +268,7 @@ public class UserController {
 
 
     /**
-     * 4.通过id修改一个用户信息
+     * 5.通过id修改一个用户信息
      * @param id            要修改的用户id
      * @param name          修改后的用户名
      * @param password      修改后的密码
@@ -328,7 +368,7 @@ public class UserController {
 
 
     /**
-     * 5.通过id删除一个用户
+     * 6.通过id删除一个用户
      * @param id 要删除的用户id
      * @return
      */
