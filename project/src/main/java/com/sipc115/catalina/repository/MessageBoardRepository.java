@@ -6,12 +6,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface MessageBoardRepository extends JpaRepository<MessageBoard, Integer> {
 
     /**通过id查询一条留言*/
     @Override
-    MessageBoard findOne(Integer integer);
+    Optional<MessageBoard> findById(Integer integer);
 
     /**分页查询留言*/
     @Override
@@ -23,5 +25,5 @@ public interface MessageBoardRepository extends JpaRepository<MessageBoard, Inte
 
     /**删除一条留言*/
     @Override
-    void delete(Integer integer);
+    void deleteById(Integer integer);
 }

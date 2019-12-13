@@ -298,7 +298,6 @@ public class UserController {
         //2.删除用户头像图片资源
         Users user = userService.findeOne(id);
         uploadFileService.deleteImage(URLUtil.getVirtualLocalhostPath() + user.getUserHeadImage());
-        System.out.println(URLUtil.getVirtualLocalhostPath() + user.getUserHeadImage());
 
         //3.从数据库删除记录
         userService.delUser(id);

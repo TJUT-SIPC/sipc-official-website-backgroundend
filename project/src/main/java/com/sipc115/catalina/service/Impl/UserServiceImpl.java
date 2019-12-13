@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Users findeOne(Integer userId) {
-        return userRepository.findOne(userId);
+        return userRepository.findById(userId).get();
     }
 
     @Override
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
      * @return 查询到的用户集合
      */
     public List<Users> findAll(Integer pageNum, Integer pageSize) {
-        Pageable pageable = new PageRequest(pageNum,pageSize);
+        Pageable pageable = PageRequest.of(pageNum,pageSize);
         Page<Users> page = userRepository.findAll(pageable);
         return page.getContent();
     }
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public List<Users> findAllByUserStatus(Integer userStatus, Integer pageNum, Integer pageSize) {
-        Pageable pageable = new PageRequest(pageNum, pageSize);
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<Users> page = userRepository.findAllByStatus(userStatus, pageable);
         return page.getContent();
     }
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void delUser(Integer userId){
-        userRepository.delete(userId);
+        userRepository.deleteById(userId);
     }
 
 

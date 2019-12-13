@@ -19,7 +19,7 @@ public class WishRepositoryTest {
     @Test
     public void findAll() {
         System.out.println("查询到多少条记录"+repository.findWishesByWishStatus(1,
-                new PageRequest(0,2)
+                PageRequest.of(0,2)
         ).getTotalElements());
     }
 
@@ -35,6 +35,6 @@ public class WishRepositoryTest {
 
     @Test
     public void delete() {
-        repository.delete(5);
+        repository.deleteById(5);
     }
 }

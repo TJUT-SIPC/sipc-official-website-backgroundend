@@ -1,6 +1,7 @@
 package com.sipc115.catalina.repository;
 
 import com.sipc115.catalina.dataobject.Awards;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,13 +12,19 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.Optional;
 
 @Repository
 public interface AwardRepository extends JpaRepository<Awards, Integer> {
 
     /**通过id查询一个奖项*/
     @Override
-    Awards findOne(Integer integer);
+    Optional<Awards> findById(Integer integer);
+
+    ///SpringBoot2.x不适用 **通过id查询一个奖项*/
+    //@Override
+    //Awards findOne(Integer integer);
+
 
     /**分页查询奖项*/
     @Override
@@ -35,5 +42,9 @@ public interface AwardRepository extends JpaRepository<Awards, Integer> {
 
     /**通过id删除一个奖项*/
     @Override
-    void delete(Integer integer);
+    void deleteById(Integer integer);
+
+    //SpringBoot2.x不适用 /**通过id删除一个奖项*/
+    //@Override
+    //void delete(Integer integer);
 }

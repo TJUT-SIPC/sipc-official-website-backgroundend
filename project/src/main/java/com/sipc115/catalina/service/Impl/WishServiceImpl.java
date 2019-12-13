@@ -19,7 +19,7 @@ public class WishServiceImpl implements WishService {
 
     @Override
     public Wishes findOne(Integer wishId) {
-        return wishRepository.findOne(wishId);
+        return wishRepository.findById(wishId).get();
     }
 
     /**
@@ -30,7 +30,7 @@ public class WishServiceImpl implements WishService {
      */
     @Override
     public List<Wishes> findAll(Integer pageNum, Integer pageSize) {
-        Pageable pageable = new PageRequest(pageNum, pageSize);
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<Wishes> page = wishRepository.findAll(pageable);
         return page.getContent();
     }
@@ -44,7 +44,7 @@ public class WishServiceImpl implements WishService {
      */
     @Override
     public List<Wishes> findWishesByWishStatus(Integer wishStatus ,Integer pageNum, Integer pageSize) {
-        Pageable pageable = new PageRequest(pageNum, pageSize);
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<Wishes> page = wishRepository.findWishesByWishStatus(wishStatus,pageable);
         return page.getContent();
     }
@@ -86,6 +86,6 @@ public class WishServiceImpl implements WishService {
      */
     @Override
     public void delWish(Integer wishId) {
-        wishRepository.delete(wishId);
+        wishRepository.deleteById(wishId);
     }
 }

@@ -7,6 +7,7 @@ import org.hibernate.annotations.SelectBeforeUpdate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
 
@@ -18,7 +19,7 @@ public class Dynamics {
 
     /**动态id*/
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer dynamicId;
     /**动态图片URL*/
     private String dynamicImage;

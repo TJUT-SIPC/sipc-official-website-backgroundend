@@ -11,13 +11,14 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface WishRepository extends JpaRepository<Wishes, Integer> {
 
     /**通过id查询一条寄语*/
     @Override
-    Wishes findOne(Integer integer);
+    Optional<Wishes> findById(Integer integer);
 
     /**分页查询所有寄语*/
     Page<Wishes> findAll(Pageable pageable);
@@ -47,5 +48,5 @@ public interface WishRepository extends JpaRepository<Wishes, Integer> {
 
     /**通过id删除一个寄语*/
     @Override
-    void delete(Integer integer);
+    void deleteById(Integer integer);
 }

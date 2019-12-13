@@ -11,14 +11,14 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<Users, Integer> {
 
     /**通过id查询一个用户*/
     @Override
-    Users findOne(Integer integer);
-
+    Optional<Users> findById(Integer integer);
 
     @Override
     /**分页查询所有用户*/
@@ -50,5 +50,5 @@ public interface UserRepository extends JpaRepository<Users, Integer> {
 
     /**通过id删除一个用户*/
     @Override
-    void delete(Integer integer);
+    void deleteById(Integer integer);
 }

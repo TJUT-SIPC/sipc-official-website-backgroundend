@@ -11,13 +11,14 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.Optional;
 
 @Repository
 public interface ProjectRepository extends JpaRepository<Projects, Integer> {
 
     /**通过id查询一个项目*/
     @Override
-    Projects findOne(Integer integer);
+    Optional<Projects> findById(Integer integer);
 
     /**分页查询项目*/
     Page<Projects> findAll(Pageable pageable);
@@ -37,5 +38,5 @@ public interface ProjectRepository extends JpaRepository<Projects, Integer> {
 
     /**通过id删除一个项目*/
     @Override
-    void delete(Integer integer);
+    void deleteById(Integer integer);
 }

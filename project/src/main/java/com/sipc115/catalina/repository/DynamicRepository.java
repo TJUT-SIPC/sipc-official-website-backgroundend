@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 
 @Repository
@@ -17,7 +18,7 @@ public interface DynamicRepository extends JpaRepository<Dynamics, Integer> {
 
     /**通过id查询一个动态*/
     @Override
-    Dynamics findOne(Integer integer);
+    Optional<Dynamics> findById(Integer integer);
 
     /**分页查询动态*/
     @Override
@@ -38,5 +39,5 @@ public interface DynamicRepository extends JpaRepository<Dynamics, Integer> {
 
     /**删除一个动态*/
     @Override
-    void delete(Integer integer);
+    void deleteById(Integer integer);
 }

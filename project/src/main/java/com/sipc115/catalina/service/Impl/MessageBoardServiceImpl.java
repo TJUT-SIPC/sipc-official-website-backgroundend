@@ -24,7 +24,7 @@ public class MessageBoardServiceImpl implements MessageBoardService {
      */
     @Override
     public MessageBoard findOne(Integer messageBoardId) {
-        return messageBoardRepository.findOne(messageBoardId);
+        return messageBoardRepository.findById(messageBoardId).get();
     }
 
     /**
@@ -35,7 +35,7 @@ public class MessageBoardServiceImpl implements MessageBoardService {
      */
     @Override
     public List<MessageBoard> findAll(Integer pageNum, Integer pageSize) {
-        Pageable pageable = new PageRequest(pageNum, pageSize);
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<MessageBoard> page = messageBoardRepository.findAll(pageable);
         return page.getContent();
     }
@@ -51,6 +51,6 @@ public class MessageBoardServiceImpl implements MessageBoardService {
      */
     @Override
     public void delMessage(Integer messageBoardId) {
-        messageBoardRepository.delete(messageBoardId);
+        messageBoardRepository.deleteById(messageBoardId);
     }
 }

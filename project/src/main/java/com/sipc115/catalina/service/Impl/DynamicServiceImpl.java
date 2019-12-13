@@ -24,7 +24,7 @@ public class DynamicServiceImpl implements DynamicService {
      */
     @Override
     public Dynamics findOne(Integer dynamicId) {
-        return dynamicRepository.findOne(dynamicId);
+        return dynamicRepository.findById(dynamicId).get();
     }
 
     /***
@@ -35,7 +35,7 @@ public class DynamicServiceImpl implements DynamicService {
      */
     @Override
     public List<Dynamics> findAll(Integer pageNum, Integer pageSize) {
-        Pageable pageable = new PageRequest(pageNum, pageSize);
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<Dynamics> page = dynamicRepository.findAll(pageable);
         return page.getContent();
     }
@@ -63,6 +63,6 @@ public class DynamicServiceImpl implements DynamicService {
 
     @Override
     public void delDynamic(Integer dynamicId) {
-        dynamicRepository.delete(dynamicId);
+        dynamicRepository.deleteById(dynamicId);
     }
 }

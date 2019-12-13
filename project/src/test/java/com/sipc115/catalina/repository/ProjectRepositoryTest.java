@@ -19,7 +19,7 @@ public class ProjectRepositoryTest {
 
     @Test
     public void findOne() {
-        System.out.println(repository.findOne(2));
+        System.out.println(repository.findById(2));
     }
 
     @Test

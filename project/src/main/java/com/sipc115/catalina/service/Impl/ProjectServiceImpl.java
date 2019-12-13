@@ -24,7 +24,7 @@ public class ProjectServiceImpl implements ProjectService {
      */
     @Override
     public Projects findOne(Integer projectId) {
-        return projectRepository.findOne(projectId);
+        return projectRepository.findById(projectId).get();
     }
 
     /**
@@ -35,7 +35,7 @@ public class ProjectServiceImpl implements ProjectService {
      */
     @Override
     public List<Projects> findAll(Integer pageNum, Integer pageSize) {
-        Pageable pageable = new PageRequest(pageNum, pageSize);
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<Projects> page = projectRepository.findAll(pageable);
         return page.getContent();
     }
@@ -67,6 +67,6 @@ public class ProjectServiceImpl implements ProjectService {
      */
     @Override
     public void delProject(Integer projectId) {
-        projectRepository.delete(projectId);
+        projectRepository.deleteById(projectId);
     }
 }

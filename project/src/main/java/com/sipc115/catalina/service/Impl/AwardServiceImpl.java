@@ -24,7 +24,7 @@ public class AwardServiceImpl implements AwardService {
      */
     @Override
     public Awards findOne(Integer awardId) {
-        return awardRepository.findOne(awardId);
+        return awardRepository.findById(awardId).get();
     }
 
     /**
@@ -35,7 +35,7 @@ public class AwardServiceImpl implements AwardService {
      */
     @Override
     public List<Awards> findAll(Integer pageNum, Integer pageSize) {
-        Pageable pageable = new PageRequest(pageNum, pageSize);
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<Awards> page = awardRepository.findAll(pageable);
         return page.getContent();
     }
@@ -55,6 +55,7 @@ public class AwardServiceImpl implements AwardService {
      * @param award 奖项对象
      * @return 奖项对象
      */
+
     @Override
     public Awards addAward(Awards award) {
         return awardRepository.save(award);
@@ -66,7 +67,7 @@ public class AwardServiceImpl implements AwardService {
      */
     @Override
     public void delAward(Integer awardId) {
-        awardRepository.delete(awardId);
+        awardRepository.deleteById(awardId);
     }
 
 }

@@ -19,7 +19,7 @@ public class UserRepositoryTest {
 
     @Test
     public void findAllTest(){
-        Pageable pageable = new PageRequest(0,5);
+        Pageable pageable = PageRequest.of(0,5);
         Page<Users> page = repository.findAll(pageable);
         System.out.println(page.getContent());
     }
@@ -37,7 +37,7 @@ public class UserRepositoryTest {
 
     @Test
     public void findOneTest(){
-        System.out.println(repository.findOne(3));
+        System.out.println(repository.findById(3));
     }
 
 }
