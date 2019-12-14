@@ -867,7 +867,11 @@ id 必须
 {
     "code": 1000,
     "msg": "success",
-    "data": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhZG1pbiIsImlhdCI6MTU3NjI0Nzg0Nywic3ViIjoiIiwiaXNzIjoic2lwYzExNS5jb20iLCJleHAiOjE1NzY4NTI2NDd9.pyJm1TLJ3Q6OZ2qcQEDQD_ghvXcC6aA8f-2kpOexzqc"			//返回一个token，前端将其以"sipc-token"为名放入headers中
+    "data": {
+        "id": 30,						//登陆成功的用户id
+        "name": "admin",		//用户名
+        "token": 		"eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhZG1pbiIsImlhdCI6MTU3NjMwMjAwOCwic3ViIjoiIiwiaXNzIjoic2lwYzExNS5jb20iLCJleHAiOjE1NzY5MDY4MDh9.UhYMDQWRXQVp7nbjqg-CqYx2uwn2Za4h7GJGNJRiJSA"		//token请前端以"sipc-token"为变量名保存到Header中
+    }
 }
 
 {
