@@ -75,7 +75,7 @@ id 必须
     "msg": "success",
     "data": {
         "id": 30,
-        "name": "admin",
+        "username": "admin",
         "password": "admin",
         "student_id": null,
         "age": null,
@@ -90,6 +90,43 @@ id 必须
     }
 }
 ~~~
+
+
+
+### 通过用户名查询
+
+[POST]/userCenter/getUserByUsername
+
+参数
+
+name 必须
+
+返回
+
+
+~~~ 
+{
+    "code": 0,
+    "msg": "success",
+    "data": {
+        "id": 30,
+        "username": "admin",
+        "password": "admin",
+        "student_id": null,
+        "age": null,
+        "gender": null,
+        "phone": null,
+        "email": null,
+        "create_time": "2019-12-14 07:28:20",
+        "last_login": null,
+        "status": 2,
+        "remark": null,
+        "head_image": "http://localhost:8082/null"
+    }
+}
+~~~
+
+
 
 
 
