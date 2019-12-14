@@ -34,7 +34,7 @@ public class AwardController {
      */
     @PostMapping("/getAllAwards")
     @LoginRequired
-    public ResultVO getAllAwards(Integer page, Integer pageSize){
+    public ResultVO getAllAwards_ADMIN(Integer page, Integer pageSize){
 
         //日期格式化 yyyy/MM
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM");
@@ -80,7 +80,7 @@ public class AwardController {
      */
     @PostMapping("/addAward")
     @LoginRequired
-    public ResultVO addAward(String name, Date time){
+    public ResultVO addAward_ADMIN(String name, Date time){
 
         //1.验证参数
         boolean rightName = (name != null) && !name.trim().isEmpty() && name.length()<=50;
@@ -112,7 +112,7 @@ public class AwardController {
      */
     @PostMapping("/modifyAward")
     @LoginRequired
-    public ResultVO modifyAward(Integer id, String name , Date time){
+    public ResultVO modifyAward_ADMIN(Integer id, String name , Date time){
 
         //1.验证参数
         boolean rightName = (name != null) && !name.trim().isEmpty() && name.length()<=50;
@@ -143,7 +143,7 @@ public class AwardController {
      */
     @PostMapping("/delAward")
     @LoginRequired
-    public ResultVO delAward(Integer id){
+    public ResultVO delAward_ADMIN(Integer id){
 
         userAndAwardService.delRelationByAwardId(id);
         awardService.delAward(id);

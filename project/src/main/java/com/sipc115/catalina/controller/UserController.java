@@ -6,6 +6,7 @@ import com.sipc115.catalina.VO.UserVO.UserListVO;
 import com.sipc115.catalina.annotation.LoginRequired;
 import com.sipc115.catalina.dataobject.Users;
 import com.sipc115.catalina.enums.UserStatusEnum;
+import com.sipc115.catalina.service.CheckUserStatusService;
 import com.sipc115.catalina.service.UploadFileService;
 import com.sipc115.catalina.service.UserAndAwardService;
 import com.sipc115.catalina.service.UserService;
@@ -29,6 +30,8 @@ public class UserController {
     private UserAndAwardService userAndAwardService;
     @Autowired
     private UploadFileService uploadFileService;
+    @Autowired
+    private CheckUserStatusService checkUserStatusService;
 
     /**
      * 1.根据id查询一个用户
@@ -36,7 +39,8 @@ public class UserController {
      * @return
      */
     @PostMapping("/getUserById")
-    public ResultVO getUserById(@RequestParam("id") Integer id, HttpServletRequest request){
+    @LoginRequired
+    public ResultVO getUserById_SPECIAL(@RequestParam("id") Integer id, HttpServletRequest request){
 
         //日期格式化 yyyy-MM-dd HH:mm:ss
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -44,8 +48,14 @@ public class UserController {
         //1.查询用户
         Users user = userService.findOne(id);
 
-        //2.数据组装
+        //2.进行身份校验，管理员身份以上可以随意查询id，普通用户只能查询自己信息
+        if(!checkUserStatusService.isAdmin()){
+            if(request.getSession().getAttribute("userId") != user.getUserId()){
+                return new ResultVO(400,"你没有权限");
+            }
+        }
 
+        //3.数据组装
         //传入用户信息
         UserListInfoVO userListInfoVO = new UserListInfoVO();
         userListInfoVO.setUserId(user.getUserId());
@@ -78,7 +88,8 @@ public class UserController {
      * @return
      */
     @PostMapping("/getUserByUsername")
-    public ResultVO getUserByUsername(@RequestParam("name") String name, HttpServletRequest request){
+    @LoginRequired
+    public ResultVO getUserByUsername_ROOT(@RequestParam("name") String name, HttpServletRequest request){
 
         //日期格式化 yyyy-MM-dd HH:mm:ss
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -123,7 +134,7 @@ public class UserController {
      */
     @GetMapping("/getUsers")
     @LoginRequired
-    public ResultVO getUsers(@RequestParam("page")Integer page, @RequestParam("pageSize")Integer pageSize ,@RequestParam("status") Integer status, HttpServletRequest request){
+    public ResultVO getUsers_ROOT(@RequestParam("page")Integer page, @RequestParam("pageSize")Integer pageSize ,@RequestParam("status") Integer status, HttpServletRequest request){
 
         //日期格式化 yyyy-MM-dd HH:mm:ss
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -194,7 +205,7 @@ public class UserController {
      */
     @PostMapping("/addUser")
     @LoginRequired
-    public ResultVO addUser(String name, String password, String student_id, Integer age, String gender, String phone, String email, Integer status, String remark, String head_image) throws IOException {
+    public ResultVO addUser_ROOT(String name, String password, String student_id, Integer age, String gender, String phone, String email, Integer status, String remark, String head_image) throws IOException {
 
         //1.验证必须参数
         boolean rightName = false;
@@ -285,7 +296,7 @@ public class UserController {
      */
     @PostMapping("/modifyUser")
     @LoginRequired
-    public ResultVO addUser(Integer id,String name, String password, String student_id, Integer age, String gender, String phone, String email, Integer status, String remark, String head_image) throws IOException {
+    public ResultVO addUser_ROOT(Integer id,String name, String password, String student_id, Integer age, String gender, String phone, String email, Integer status, String remark, String head_image) throws IOException {
 
         //1.验证必须参数
         boolean rightName = false;
@@ -374,7 +385,7 @@ public class UserController {
      */
     @PostMapping("/delUser")
     @LoginRequired
-    public ResultVO delUser(Integer id){
+    public ResultVO delUser_ROOT(Integer id){
 
         //1.先删除用户关联的奖项记录
         userAndAwardService.delRelationByUserId(id);

@@ -14,90 +14,32 @@ public class UserStatusAspect {
     @Autowired
     private CheckUserStatusService checkUserStatusService;
 
-    @Pointcut("execution(* com.sipc115.catalina.controller.AwardController.*(..))")
-    public void awardAspect(){
+    /**切入点*/
+    @Pointcut("execution(* com.sipc115.catalina.controller.*.*_ADMIN(..))")
+    public void adminCheckAspect(){
 
     }
-    @Pointcut("execution(* com.sipc115.catalina.controller.DynamicController.*(..))")
-    public void dynamicAspect(){
-
-    }
-    @Pointcut("execution(* com.sipc115.catalina.controller.MessageController.*(..))")
-    public void messageAspect(){
-
-    }
-    @Pointcut("execution(* com.sipc115.catalina.controller.ProjectController.*(..))")
-    public void projectAspect(){
-
-    }
-    @Pointcut("execution(* com.sipc115.catalina.controller.WishController.*(..))")
-    public void wishAspect(){
-
-    }
-    @Pointcut("execution(* com.sipc115.catalina.controller.UploadFileController.*(..))")
-    public void uploadFileAspect(){
-
-    }
-    @Pointcut("execution(* com.sipc115.catalina.controller.UserController.*(..))")
-    public void userAspect(){
+    @Pointcut("execution(* com.sipc115.catalina.controller.*.*_ROOT(..))")
+    public void rootCheckAspect(){
 
     }
 
-    @Before(value = "awardAspect()")
-    public void awardBefore() throws Exception {
+    /**切面*/
+    @Before(value = "adminCheckAspect()")
+    public void adminCheck() throws Exception {
         if(checkUserStatusService.isAdmin()){
-            System.out.println("管理员身份检验成功");
+            System.out.println("----------管理员身份检验成功----------");
         }else {
-            throw new Exception("权限不足");
+            throw new Exception("----------权限不足----------");
         }
     }
 
-    @Before(value = "dynamicAspect()")
-    public void dynamicBefore() throws Exception {
-        if(checkUserStatusService.isAdmin()){
-            System.out.println("管理员身份检验成功");
-        }else {
-            throw new Exception("权限不足");
-        }
-    }
-    @Before(value = "messageAspect()")
-    public void messageBefore() throws Exception {
-        if(checkUserStatusService.isAdmin()){
-            System.out.println("管理员身份检验成功");
-        }else {
-            throw new Exception("权限不足");
-        }
-    }
-    @Before(value = "projectAspect()")
-    public void projectBefore() throws Exception {
-        if(checkUserStatusService.isAdmin()){
-            System.out.println("管理员身份检验成功");
-        }else {
-            throw new Exception("权限不足");
-        }
-    }
-    @Before(value = "wishAspect()")
-    public void wishBefore() throws Exception {
-        if(checkUserStatusService.isAdmin()){
-            System.out.println("管理员身份检验成功");
-        }else {
-            throw new Exception("权限不足");
-        }
-    }
-    @Before(value = "uploadFileAspect()")
-    public void uploadFileBefore() throws Exception {
-        if(checkUserStatusService.isAdmin()){
-            System.out.println("管理员身份检验成功");
-        }else {
-            throw new Exception("权限不足");
-        }
-    }
-    @Before(value = "userAspect()")
-    public void userBefore() throws Exception {
+    @Before(value = "rootCheckAspect()")
+    public void rootCheck() throws Exception {
         if(checkUserStatusService.isRoot()){
-            System.out.println("管理员身份检验成功");
+            System.out.println("----------超级管理员身份检验成功----------");
         }else {
-            throw new Exception("权限不足");
+            throw new Exception("----------权限不足----------");
         }
     }
 

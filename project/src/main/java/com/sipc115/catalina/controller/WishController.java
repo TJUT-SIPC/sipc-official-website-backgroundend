@@ -21,8 +21,6 @@ public class WishController {
     @Autowired
     private WishService wishService;
 
-
-
     /**
      * 1.查询所有寄语
      * @param page
@@ -31,7 +29,7 @@ public class WishController {
      * @return
      */
     @GetMapping("/wishCenter/getAllWishes")
-    public ResultVO getWishesInCnter(@RequestParam("page") Integer page,@RequestParam("pageSize") Integer pageSize,
+    public ResultVO getWishesInCnter_ADMIN(@RequestParam("page") Integer page,@RequestParam("pageSize") Integer pageSize,
                                      @RequestParam("status")Integer status){
 
         //控制一页显示的条数
@@ -88,7 +86,7 @@ public class WishController {
      * @return
      */
     @PostMapping("/wishCenter/modifyWish")
-    public ResultVO modifyWish(Integer id , Integer status){
+    public ResultVO modifyWish_ADMIN(Integer id , Integer status){
 
         if(status>=WishStatusEnum.FAILED.getCode() && status<=WishStatusEnum.PUBLISH.getCode()){
             wishService.updateWishStatus(id, status);
@@ -105,7 +103,7 @@ public class WishController {
      * @return      ResultVO
      */
     @PostMapping("/wishCenter/delWish")
-    public ResultVO delWish(Integer id){
+    public ResultVO delWish_ADMIN(Integer id){
         wishService.delWish(id);
         return new ResultVO(0,"success");
     }

@@ -37,7 +37,7 @@ public class DynamicController {
      */
     @GetMapping("/dynamicCenter/getDynamics")
     @LoginRequired
-    public ResultVO getAllDynamics(@RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize, HttpServletRequest request){
+    public ResultVO getAllDynamics_ADMIN(@RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize, HttpServletRequest request){
 
         //日期格式化
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -94,7 +94,7 @@ public class DynamicController {
      */
     @PostMapping("/dynamicCenter/addDynamic")
     @LoginRequired
-    public ResultVO addDynamic(String image, String header, String text, String editor, Integer category) throws IOException {
+    public ResultVO addDynamic_ADMIN(String image, String header, String text, String editor, Integer category) throws IOException {
 
         //1.验证必须参数
         boolean rightHeader = (header != null) && (header.length()<=50) && !header.trim().isEmpty();
@@ -137,7 +137,7 @@ public class DynamicController {
      */
     @PostMapping("/dynamicCenter/modifyDynamic")
     @LoginRequired
-    public ResultVO modifyDynamic(Integer id, String image, String header, String text, String editor, Integer category) throws IOException {
+    public ResultVO modifyDynamic_ADMIN(Integer id, String image, String header, String text, String editor, Integer category) throws IOException {
 
         //1.验证必须参数
         boolean rightHeader = (header != null) && (header.length()<=50 && !header.trim().isEmpty());
@@ -180,7 +180,7 @@ public class DynamicController {
      */
     @PostMapping("/dynamicCenter/delDynamic")
     @LoginRequired
-    public ResultVO delDynamic(Integer id){
+    public ResultVO delDynamic_ADMIN(Integer id){
 
         //1.删除动态相关图片资源
         Dynamics dynamic = dynamicService.findOne(id);

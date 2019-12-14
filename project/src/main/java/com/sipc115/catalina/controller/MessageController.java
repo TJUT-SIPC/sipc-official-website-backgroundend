@@ -24,8 +24,6 @@ public class MessageController {
     @Autowired
     private MessageBoardService messageBoardService;
 
-
-
     /**
      * 1.分页查询所有留言功能
      * @param page      当前页数
@@ -34,7 +32,7 @@ public class MessageController {
      */
     @PostMapping("/messageCenter/getMessage")
     @LoginRequired
-    public ResultVO getMessage(Integer page, Integer pageSize){
+    public ResultVO getMessage_ADMIN(Integer page, Integer pageSize){
 
         //日期格式化
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -83,7 +81,7 @@ public class MessageController {
      */
     @LoginRequired
     @PostMapping("/messageCenter/delMessage")
-    public ResultVO delMessage(Integer id){
+    public ResultVO delMessage_ADMIN(Integer id){
         messageBoardService.delMessage(id);
         return new ResultVO(0,"success");
     }

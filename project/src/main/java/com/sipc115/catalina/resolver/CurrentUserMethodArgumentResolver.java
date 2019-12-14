@@ -1,4 +1,4 @@
-package com.sipc115.catalina.Resolver;
+package com.sipc115.catalina.resolver;
 
 import com.sipc115.catalina.annotation.CurrentUser;
 import com.sipc115.catalina.dataobject.Users;

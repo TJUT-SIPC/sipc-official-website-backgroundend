@@ -10,7 +10,7 @@ public class UserListInfoVO {
 
     @JsonProperty("id")
     private Integer userId;
-    @JsonProperty("name")
+    @JsonProperty("username")
     private String userName;
     @JsonProperty("password")
     private String userPassword;

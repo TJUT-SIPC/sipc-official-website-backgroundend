@@ -1,5 +1,6 @@
 package com.sipc115.catalina.controller;
 
+import com.sipc115.catalina.VO.LoginVO.LoginInfoVO;
 import com.sipc115.catalina.VO.ResultVO;
 import com.sipc115.catalina.dataobject.Users;
 import com.sipc115.catalina.configuration.UserConstants;
@@ -45,9 +46,18 @@ public class LoginAndLogoutController {
         }else {
             //检验密码
             if(password.equals(user.getUserPassword())){
+
+                //数据组装，返回用户id，用户名，token
+                LoginInfoVO loginInfoVO = new LoginInfoVO();
+                loginInfoVO.setUserId(user.getUserId());
+
+
+                loginInfoVO.setUsername(user.getUserName());
+                loginInfoVO.setToken(loginService.login(user));
+
                 resultVO.setCode(1000);
                 resultVO.setMsg("success");
-                resultVO.setData(loginService.login(user));
+                resultVO.setData(loginInfoVO);
 
                 return resultVO;
 

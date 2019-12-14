@@ -26,7 +26,7 @@ public class UploadFileController {
      */
     @PostMapping("/uploadHeadImage")
     @LoginRequired
-    public ResultVO uploadHeadImage(MultipartFile headImage) throws IOException {
+    public ResultVO uploadHeadImage_ADMIN(MultipartFile headImage) throws IOException {
 
         List<String> headImageList = uploadFileService.uploadUserHeadImage(headImage);
 
@@ -52,7 +52,7 @@ public class UploadFileController {
      */
     @PostMapping("/uploadProjectImage")
     @LoginRequired
-    public ResultVO uploadProjectImage(MultipartFile projectImage) throws IOException {
+    public ResultVO uploadProjectImage_ADMIN(MultipartFile projectImage) throws IOException {
 
         List<String> projectImageList = uploadFileService.uploadProjectImage(projectImage);
 
@@ -78,7 +78,7 @@ public class UploadFileController {
      */
     @PostMapping("/uploadDynamicImage")
     @LoginRequired
-    public ResultVO uploadDynamicImage(MultipartFile dynamicImage) throws IOException {
+    public ResultVO uploadDynamicImage_ADMIN(MultipartFile dynamicImage) throws IOException {
 
         List<String> dynamicImageList = uploadFileService.uploadDynamicImage(dynamicImage);
 

@@ -1,6 +1,6 @@
 package com.sipc115.catalina.configuration;
 
-import com.sipc115.catalina.Resolver.CurrentUserMethodArgumentResolver;
+import com.sipc115.catalina.resolver.CurrentUserMethodArgumentResolver;
 import com.sipc115.catalina.interceptor.AuthenticationInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -47,7 +47,7 @@ public class ProjectController {
      */
     @PostMapping("/modifyProject")
     @LoginRequired
-    public ResultVO updateProject(Integer id , String description, Date time, String rawImageURL, String compressImageURL, HttpServletRequest request) throws IOException {
+    public ResultVO updateProject_ADMIN(Integer id , String description, Date time, String rawImageURL, String compressImageURL, HttpServletRequest request) throws IOException {
 
         if(rawImageURL!=null && compressImageURL!=null && description!=null && !description.trim().isEmpty() && time!=null){
 
@@ -92,7 +92,7 @@ public class ProjectController {
      */
     @PostMapping("/getProjects")
     @LoginRequired
-    public ResultVO getProjects(Integer page, Integer pageSize, HttpServletRequest request){
+    public ResultVO getProjects_ADMIN(Integer page, Integer pageSize, HttpServletRequest request){
 
         System.out.println("pageSize:" + pageSize);
 
@@ -149,7 +149,7 @@ public class ProjectController {
      */
     @PostMapping("/addProject")
     @LoginRequired
-    public ResultVO addProject(String description, Date time, String rawImageURL, String compressImageURL) throws IOException {
+    public ResultVO addProject_ADMIN(String description, Date time, String rawImageURL, String compressImageURL) throws IOException {
 
         //1.验证参数
         if(description!=null && !description.trim().isEmpty() && time!=null && rawImageURL!=null && compressImageURL!=null){
@@ -188,7 +188,7 @@ public class ProjectController {
      */
     @PostMapping("/delProject")
     @LoginRequired
-    public ResultVO delProject(Integer id){
+    public ResultVO delProject_ADMIN(Integer id){
         //1.删除项目相关图片资源
         Projects project = projectService.findOne(id);
         uploadFileService.deleteImage(URLUtil.getVirtualLocalhostPath() + project.getProjectImageRaw());

@@ -90,7 +90,7 @@ public class TokenUtil {
         Claims claims = Jwts.parser()
                 .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET))
                 .parseClaimsJws(jwt).getBody();
+
         return claims;
     }
-
 }
