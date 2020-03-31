@@ -1,17 +1,21 @@
 package com.sipc115.catalina.service.Impl;
 
 import com.sipc115.catalina.dataobject.Users;
+import com.sipc115.catalina.enums.ResultEnum;
+import com.sipc115.catalina.exception.BusinessException;
 import com.sipc115.catalina.repository.UserRepository;
 import com.sipc115.catalina.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -23,8 +27,14 @@ public class UserServiceImpl implements UserService {
      * @return 用户对象
      */
     @Override
-    public Users findOne(Integer userId) {
-        return userRepository.findById(userId).get();
+    public Users findOne(Integer userId){
+        try{
+            return userRepository.findById(userId).get();
+        }catch (NoSuchElementException e){
+            log.error("通过用户id查找不到用户,id={}",userId);
+            throw new BusinessException(ResultEnum.USER_ID_NOT_EXIST);
+        }
+
     }
 
     /**
@@ -44,10 +54,10 @@ public class UserServiceImpl implements UserService {
      * @param pageSize 一页显示多少条
      * @return 查询到的用户集合
      */
-    public List<Users> findAll(Integer pageNum, Integer pageSize) {
+    public Page<Users> findAll(Integer pageNum, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNum,pageSize);
         Page<Users> page = userRepository.findAll(pageable);
-        return page.getContent();
+        return page;
     }
 
     /**
@@ -58,10 +68,10 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public List<Users> findAllByUserStatus(Integer userStatus, Integer pageNum, Integer pageSize) {
+    public Page<Users> findAllByUserStatus(Integer userStatus, Integer pageNum, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<Users> page = userRepository.findAllByStatus(userStatus, pageable);
-        return page.getContent();
+        return page;
     }
 
     /**

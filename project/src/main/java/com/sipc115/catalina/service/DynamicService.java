@@ -1,9 +1,9 @@
 package com.sipc115.catalina.service;
 
 import com.sipc115.catalina.dataobject.Dynamics;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public interface DynamicService {
@@ -12,7 +12,7 @@ public interface DynamicService {
     Dynamics findOne(Integer dynamicId);
 
     /**分页查询动态*/
-    List<Dynamics> findAll(Integer pageNum, Integer pageSize);
+    Page<Dynamics> findAll(Integer pageNum, Integer pageSize);
 
     /**修改动态*/
     int updateDynamic(Dynamics dynamic);

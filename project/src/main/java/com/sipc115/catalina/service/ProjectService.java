@@ -1,9 +1,8 @@
 package com.sipc115.catalina.service;
 
 import com.sipc115.catalina.dataobject.Projects;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * 项目
@@ -15,7 +14,7 @@ public interface ProjectService {
     Projects findOne(Integer projectId);
 
     /**分页查询所有项目*/
-    List<Projects> findAll(Integer pageNum, Integer pageSize);
+    Page<Projects> findAll(Integer pageNum, Integer pageSize);
 
     /**修改项目*/
     int updateProject(Projects project);

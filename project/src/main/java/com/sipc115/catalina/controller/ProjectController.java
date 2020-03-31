@@ -6,10 +6,14 @@ import com.sipc115.catalina.VO.ProjectVO.ProjectListVO;
 import com.sipc115.catalina.VO.ResultVO;
 import com.sipc115.catalina.annotation.LoginRequired;
 import com.sipc115.catalina.dataobject.Projects;
+import com.sipc115.catalina.enums.ResultEnum;
+import com.sipc115.catalina.exception.BusinessException;
 import com.sipc115.catalina.service.ProjectService;
 import com.sipc115.catalina.service.UploadFileService;
 import com.sipc115.catalina.utils.URLUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/projectCenter")
 public class ProjectController {
@@ -48,6 +53,11 @@ public class ProjectController {
     @PostMapping("/modifyProject")
     @LoginRequired
     public ResultVO updateProject_ADMIN(Integer id , String description, Date time, String rawImageURL, String compressImageURL, HttpServletRequest request) throws IOException {
+
+        if(id == null){
+            log.error("传入项目id为空,project_id={}",id);
+            throw new BusinessException(ResultEnum.PARAM_ERROR);
+        }
 
         if(rawImageURL!=null && compressImageURL!=null && description!=null && !description.trim().isEmpty() && time!=null){
 
@@ -97,6 +107,10 @@ public class ProjectController {
         System.out.println("pageSize:" + pageSize);
 
         //限制一页可查询5~100条
+        if(page == null || pageSize == null){
+            log.error("page或pageSize缺失,page={}, pageSize={}",page,pageSize);
+            throw new BusinessException(ResultEnum.PARAM_ERROR);
+        }
         if(pageSize < 5)  pageSize = 5;
         if(pageSize > 100) pageSize = 100;
 
@@ -104,7 +118,9 @@ public class ProjectController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/M");
 
         //1.分页查询所有项目
-        List<Projects> projectList = projectService.findAll(page - 1,pageSize);
+        Page<Projects> projectListPage = projectService.findAll(page - 1,pageSize);
+
+        List<Projects> projectList = projectListPage.getContent();
 
         //2.数据组装
         ProjectListVO projectListVO = new ProjectListVO();
@@ -121,13 +137,16 @@ public class ProjectController {
             CenterProjectListInfoVO centerProjectListInfoVO = new CenterProjectListInfoVO();
             centerProjectListInfoVO.setProjectId(project.getProjectId());
             centerProjectListInfoVO.setProjectDescription(project.getProjectDescription());
+
+            if(project.getProjectTime()!=null)
             centerProjectListInfoVO.setProjectTime(sdf.format(project.getProjectTime()));
+
             centerProjectListInfoVO.setImg(projectImageVO);
 
             centerProjectListInfoVOList.add(centerProjectListInfoVO);
         }
         projectListVO.setCenterProjectListInfoVOList(centerProjectListInfoVOList);
-        projectListVO.setTotal_project(centerProjectListInfoVOList.size());
+        projectListVO.setTotal_project((int) projectListPage.getTotalElements());
 
         /**返回ResultVO*/
         ResultVO resultVO = new ResultVO();
@@ -189,6 +208,12 @@ public class ProjectController {
     @PostMapping("/delProject")
     @LoginRequired
     public ResultVO delProject_ADMIN(Integer id){
+
+        if(id == null){
+            log.error("传入项目id为空,project_id={}",id);
+            throw new BusinessException(ResultEnum.PARAM_ERROR);
+        }
+
         //1.删除项目相关图片资源
         Projects project = projectService.findOne(id);
         uploadFileService.deleteImage(URLUtil.getVirtualLocalhostPath() + project.getProjectImageRaw());

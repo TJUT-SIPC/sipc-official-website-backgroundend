@@ -10,7 +10,6 @@ import com.sipc115.catalina.configuration.UserConstants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -64,14 +63,14 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             String accessToken = request.getHeader(ACCESS_TOKEN);
 
             if(null == accessToken){
-                throw new Exception("没有令牌信息");
+                throw new Exception("没有令牌信息,token不存在");
             }else {
 
                 //从Redis中查看token是否存在
                 String token = redisService.get(UserConstants.REDIS_USER + accessToken);
 
                 if(token == null){
-                    throw new Exception("用户未登录");
+                    throw new Exception("用户未登录,token错误");
                 }
 
                 Claims claims = null;
@@ -104,8 +103,8 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 String userJson = redisService.get(UserConstants.REDIS_USER + accessToken).toString();
 
                 //从Redis中获取用户信息
-                User user1;
-                user1 = JSON.parseObject(userJson, User.class);
+                Users user1;
+                user1 = JSON.parseObject(userJson, Users.class);
                 if(userJson!=null && userJson!="" && user1!=null){
                     //当前登录用户@CurrentUser
                     request.setAttribute(UserConstants.CURRENT_USER, user1);

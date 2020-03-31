@@ -1,6 +1,7 @@
 package com.sipc115.catalina.service;
 
 import com.sipc115.catalina.dataobject.Wishes;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,10 +12,10 @@ public interface WishService {
     Wishes findOne(Integer wishId);
 
     /**分页查询所有寄语*/
-    List<Wishes> findAll(Integer pageNum, Integer pageSize);
+    Page<Wishes> findAll(Integer pageNum, Integer pageSize);
 
     /**分页查询不同状态寄语*/
-    List<Wishes> findWishesByWishStatus(Integer wishStatus, Integer pageNum, Integer pageSize);
+    Page<Wishes> findWishesByWishStatus(Integer wishStatus, Integer pageNum, Integer pageSize);
 
     /**分页随机查询n条已发布寄语*/
     List<Wishes> findWishesByLimit(Integer limit);

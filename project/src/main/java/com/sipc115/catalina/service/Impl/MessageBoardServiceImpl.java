@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class MessageBoardServiceImpl implements MessageBoardService {
@@ -34,12 +33,17 @@ public class MessageBoardServiceImpl implements MessageBoardService {
      * @return 查询到的留言集合
      */
     @Override
-    public List<MessageBoard> findAll(Integer pageNum, Integer pageSize) {
+    public Page<MessageBoard> findAll(Integer pageNum, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<MessageBoard> page = messageBoardRepository.findAll(pageable);
-        return page.getContent();
+        return page;
     }
 
+    /**
+     * 3.添加一条留言
+     * @param message  留言
+     * @return MessageBoard
+     */
     @Override
     public MessageBoard addMessage(MessageBoard message) {
         return messageBoardRepository.save(message);

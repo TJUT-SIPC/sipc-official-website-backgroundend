@@ -29,10 +29,10 @@ public class WishServiceImpl implements WishService {
      * @return 查询到的寄语集合
      */
     @Override
-    public List<Wishes> findAll(Integer pageNum, Integer pageSize) {
+    public Page<Wishes> findAll(Integer pageNum, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<Wishes> page = wishRepository.findAll(pageable);
-        return page.getContent();
+        return page;
     }
 
     /**
@@ -43,10 +43,10 @@ public class WishServiceImpl implements WishService {
      * @return 查询到的寄语集合
      */
     @Override
-    public List<Wishes> findWishesByWishStatus(Integer wishStatus ,Integer pageNum, Integer pageSize) {
+    public Page<Wishes> findWishesByWishStatus(Integer wishStatus ,Integer pageNum, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<Wishes> page = wishRepository.findWishesByWishStatus(wishStatus,pageable);
-        return page.getContent();
+        return page;
     }
 
     /**

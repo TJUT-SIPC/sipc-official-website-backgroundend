@@ -40,4 +40,7 @@ public interface DynamicRepository extends JpaRepository<Dynamics, Integer> {
     /**删除一个动态*/
     @Override
     void deleteById(Integer integer);
+
+    /**查询总条数*/
+
 }

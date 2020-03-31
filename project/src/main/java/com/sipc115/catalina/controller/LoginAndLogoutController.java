@@ -7,6 +7,7 @@ import com.sipc115.catalina.configuration.UserConstants;
 import com.sipc115.catalina.service.LoginService;
 import com.sipc115.catalina.service.LogoutService;
 import com.sipc115.catalina.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/")
+@Slf4j
 public class LoginAndLogoutController {
 
     @Autowired
@@ -40,6 +42,7 @@ public class LoginAndLogoutController {
         Users user = userService.findOneByUserName(username);
 
         if(user == null){
+            log.error("[登录失败]用户不存在,username={},password={}",username,password);
             resultVO.setCode(1001);
             resultVO.setMsg("用户不存在");
             return resultVO;
@@ -62,6 +65,7 @@ public class LoginAndLogoutController {
                 return resultVO;
 
             } else {
+                log.error("[登录失败]密码错误 username={} ,password={}",username,password);
                 resultVO.setCode(1002);
                 resultVO.setMsg("密码错误");
 

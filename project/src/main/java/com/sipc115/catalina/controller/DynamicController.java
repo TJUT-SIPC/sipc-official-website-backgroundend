@@ -9,14 +9,13 @@ import com.sipc115.catalina.service.DynamicService;
 import com.sipc115.catalina.service.UploadFileService;
 import com.sipc115.catalina.utils.URLUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -46,7 +45,9 @@ public class DynamicController {
         if(pageSize>100) pageSize=100;
 
         //1.分页查询所有动态
-        List<Dynamics> dynamicList = dynamicService.findAll(page - 1, pageSize);
+        Page<Dynamics> dynamicListPage = dynamicService.findAll(page - 1, pageSize);
+
+        List<Dynamics> dynamicList = dynamicListPage.getContent();
 
         //2.数据组装
         DynamicListVO dynamicListVO = new DynamicListVO();
@@ -70,7 +71,7 @@ public class DynamicController {
         }
 
         dynamicListVO.setDynamicListInfoVOList(dynamicListInfoVOList);
-        dynamicListVO.setTotalPage(dynamicListInfoVOList.size());
+        dynamicListVO.setTotalPage((int) dynamicListPage.getTotalElements());
 
         /**返回ResultVO*/
         ResultVO resultVO = new ResultVO();
@@ -137,7 +138,7 @@ public class DynamicController {
      */
     @PostMapping("/dynamicCenter/modifyDynamic")
     @LoginRequired
-    public ResultVO modifyDynamic_ADMIN(Integer id, String image, String header, String text, String editor, Integer category) throws IOException {
+    public ResultVO modifyDynamic_ADMIN(@RequestParam("id") Integer id, String image, String header, String text, String editor, Integer category) throws IOException {
 
         //1.验证必须参数
         boolean rightHeader = (header != null) && (header.length()<=50 && !header.trim().isEmpty());
@@ -180,7 +181,7 @@ public class DynamicController {
      */
     @PostMapping("/dynamicCenter/delDynamic")
     @LoginRequired
-    public ResultVO delDynamic_ADMIN(Integer id){
+    public ResultVO delDynamic_ADMIN(@RequestParam("id") Integer id){
 
         //1.删除动态相关图片资源
         Dynamics dynamic = dynamicService.findOne(id);

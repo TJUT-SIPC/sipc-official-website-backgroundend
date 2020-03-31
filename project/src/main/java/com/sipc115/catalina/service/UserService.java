@@ -1,9 +1,9 @@
 package com.sipc115.catalina.service;
 
 import com.sipc115.catalina.dataobject.Users;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 /**
  * 用户
@@ -18,10 +18,10 @@ public interface UserService {
     Users findOneByUserName(String username);
 
     /**分页查询所有用户*/
-    List<Users> findAll(Integer pageNum, Integer pageSize);
+    Page<Users> findAll(Integer pageNum, Integer pageSize);
 
     /**分页查询不同权限用户*/
-    List<Users> findAllByUserStatus(Integer userStatus, Integer pageNum, Integer pageSize);
+    Page<Users> findAllByUserStatus(Integer userStatus, Integer pageNum, Integer pageSize);
 
     /**修改用户*/
     int updateUser(Users user);

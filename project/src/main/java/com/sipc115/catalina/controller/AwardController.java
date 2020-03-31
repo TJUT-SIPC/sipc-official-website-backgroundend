@@ -8,8 +8,10 @@ import com.sipc115.catalina.dataobject.Awards;
 import com.sipc115.catalina.service.AwardService;
 import com.sipc115.catalina.service.UserAndAwardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
@@ -34,13 +36,16 @@ public class AwardController {
      */
     @PostMapping("/getAllAwards")
     @LoginRequired
-    public ResultVO getAllAwards_ADMIN(Integer page, Integer pageSize){
+    public ResultVO getAllAwards_ADMIN(@RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize){
 
         //日期格式化 yyyy/MM
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM");
 
         //1.分页查询所有奖项
-        List<Awards> awardList = awardService.findAll(page-1, pageSize);
+
+        Page<Awards> awardListPage = awardService.findAll(page-1, pageSize);
+
+        List<Awards> awardList = awardListPage.getContent();
 
         //2.数据组装
         AwardListVO awardListVO = new AwardListVO();
@@ -61,7 +66,7 @@ public class AwardController {
         }
 
         awardListVO.setAwardListInfoVOList(awardListInfoVOList);
-        awardListVO.setTotalAward(awardListInfoVOList.size());
+        awardListVO.setTotalAward((int) awardListPage.getTotalElements());
 
         /**返回ResultVO*/
         ResultVO resultVO = new ResultVO();
@@ -112,7 +117,7 @@ public class AwardController {
      */
     @PostMapping("/modifyAward")
     @LoginRequired
-    public ResultVO modifyAward_ADMIN(Integer id, String name , Date time){
+    public ResultVO modifyAward_ADMIN(@RequestParam("id") Integer id, String name , Date time){
 
         //1.验证参数
         boolean rightName = (name != null) && !name.trim().isEmpty() && name.length()<=50;
@@ -143,7 +148,7 @@ public class AwardController {
      */
     @PostMapping("/delAward")
     @LoginRequired
-    public ResultVO delAward_ADMIN(Integer id){
+    public ResultVO delAward_ADMIN(@RequestParam("id") Integer id){
 
         userAndAwardService.delRelationByAwardId(id);
         awardService.delAward(id);

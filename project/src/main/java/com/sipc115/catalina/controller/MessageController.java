@@ -8,8 +8,10 @@ import com.sipc115.catalina.dataobject.MessageBoard;
 import com.sipc115.catalina.service.MessageBoardService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
@@ -32,7 +34,7 @@ public class MessageController {
      */
     @PostMapping("/messageCenter/getMessage")
     @LoginRequired
-    public ResultVO getMessage_ADMIN(Integer page, Integer pageSize){
+    public ResultVO getMessage_ADMIN(@RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize){
 
         //日期格式化
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -41,7 +43,9 @@ public class MessageController {
         if(pageSize>100) pageSize=100;
 
         //1.查询所有留言
-        List<MessageBoard> messageList = messageBoardService.findAll(page-1, pageSize);
+        Page<MessageBoard> messageListPage = messageBoardService.findAll(page-1, pageSize);
+
+        List<MessageBoard> messageList = messageListPage.getContent();
 
         //2.数据组装
         MessageListVO messageListVO = new MessageListVO();
@@ -63,7 +67,7 @@ public class MessageController {
         }
 
         messageListVO.setMessageListInfoVOList(messageListInfoVOList);
-        messageListVO.setTotal_message(messageListInfoVOList.size());
+        messageListVO.setTotal_message((int) messageListPage.getTotalElements());
 
         /**返回ResultVO*/
         ResultVO resultVO = new ResultVO();
@@ -81,7 +85,7 @@ public class MessageController {
      */
     @LoginRequired
     @PostMapping("/messageCenter/delMessage")
-    public ResultVO delMessage_ADMIN(Integer id){
+    public ResultVO delMessage_ADMIN(@RequestParam("id") Integer id){
         messageBoardService.delMessage(id);
         return new ResultVO(0,"success");
     }

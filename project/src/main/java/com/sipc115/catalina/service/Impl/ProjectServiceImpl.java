@@ -1,16 +1,20 @@
 package com.sipc115.catalina.service.Impl;
 
 import com.sipc115.catalina.dataobject.Projects;
+import com.sipc115.catalina.enums.ResultEnum;
+import com.sipc115.catalina.exception.BusinessException;
 import com.sipc115.catalina.repository.ProjectRepository;
 import com.sipc115.catalina.service.ProjectService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.NoSuchElementException;
 
+@Slf4j
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
@@ -24,7 +28,13 @@ public class ProjectServiceImpl implements ProjectService {
      */
     @Override
     public Projects findOne(Integer projectId) {
-        return projectRepository.findById(projectId).get();
+        try{
+            return projectRepository.findById(projectId).get();
+        }catch (NoSuchElementException e){
+            log.error("通过项目id查找不到项目,id={}",projectId);
+            throw new BusinessException(ResultEnum.PROJECT_ID_NOT_EXIST);
+        }
+
     }
 
     /**
@@ -34,10 +44,10 @@ public class ProjectServiceImpl implements ProjectService {
      * @return 查询到的项目集合
      */
     @Override
-    public List<Projects> findAll(Integer pageNum, Integer pageSize) {
+    public Page<Projects> findAll(Integer pageNum, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<Projects> page = projectRepository.findAll(pageable);
-        return page.getContent();
+        return page;
     }
 
     /**

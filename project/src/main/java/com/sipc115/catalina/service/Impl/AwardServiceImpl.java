@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 @Service
 public class AwardServiceImpl implements AwardService {
@@ -28,16 +31,18 @@ public class AwardServiceImpl implements AwardService {
     }
 
     /**
-     * 2.分页查询所有奖项
+     * 2.分页查询所有奖项(按时间排序)
      * @param pageNum 页数
      * @param pageSize 一页显示多少条
      * @return 查询到的奖项集合
      */
     @Override
-    public List<Awards> findAll(Integer pageNum, Integer pageSize) {
-        Pageable pageable = PageRequest.of(pageNum, pageSize);
+    public Page<Awards> findAll(Integer pageNum, Integer pageSize) {
+        //排序
+        Sort sort = Sort.by(Sort.Direction.DESC,"awardTime");
+        Pageable pageable = PageRequest.of(pageNum, pageSize, sort);
         Page<Awards> page = awardRepository.findAll(pageable);
-        return page.getContent();
+        return page;
     }
 
     /**

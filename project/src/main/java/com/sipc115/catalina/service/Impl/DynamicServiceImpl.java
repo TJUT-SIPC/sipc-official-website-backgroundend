@@ -1,17 +1,21 @@
 package com.sipc115.catalina.service.Impl;
 
 import com.sipc115.catalina.dataobject.Dynamics;
+import com.sipc115.catalina.enums.ResultEnum;
+import com.sipc115.catalina.exception.BusinessException;
 import com.sipc115.catalina.repository.DynamicRepository;
 import com.sipc115.catalina.service.DynamicService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
+@Slf4j
 public class DynamicServiceImpl implements DynamicService {
 
     @Autowired
@@ -24,7 +28,13 @@ public class DynamicServiceImpl implements DynamicService {
      */
     @Override
     public Dynamics findOne(Integer dynamicId) {
-        return dynamicRepository.findById(dynamicId).get();
+        try{
+            return dynamicRepository.findById(dynamicId).get();
+        }catch (NoSuchElementException e){
+            log.error("[动态查询]失败,通过id寻找的动态不存在,id={}",dynamicId);
+            throw new BusinessException(ResultEnum.DYNAMIC_ID_NOT_EXIST);
+        }
+
     }
 
     /***
@@ -34,10 +44,10 @@ public class DynamicServiceImpl implements DynamicService {
      * @return 查询到的动态集合
      */
     @Override
-    public List<Dynamics> findAll(Integer pageNum, Integer pageSize) {
+    public Page<Dynamics> findAll(Integer pageNum, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<Dynamics> page = dynamicRepository.findAll(pageable);
-        return page.getContent();
+        return page;
     }
 
     /**

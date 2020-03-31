@@ -7,6 +7,7 @@ import com.sipc115.catalina.enums.ImageQualityEnum;
 import com.sipc115.catalina.service.UploadFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,7 +27,7 @@ public class UploadFileController {
      */
     @PostMapping("/uploadHeadImage")
     @LoginRequired
-    public ResultVO uploadHeadImage_ADMIN(MultipartFile headImage) throws IOException {
+    public ResultVO uploadHeadImage_ADMIN(@RequestParam("headImage") MultipartFile headImage) throws IOException {
 
         List<String> headImageList = uploadFileService.uploadUserHeadImage(headImage);
 
@@ -52,7 +53,7 @@ public class UploadFileController {
      */
     @PostMapping("/uploadProjectImage")
     @LoginRequired
-    public ResultVO uploadProjectImage_ADMIN(MultipartFile projectImage) throws IOException {
+    public ResultVO uploadProjectImage_ADMIN(@RequestParam("projectImage") MultipartFile projectImage) throws IOException {
 
         List<String> projectImageList = uploadFileService.uploadProjectImage(projectImage);
 
@@ -78,7 +79,7 @@ public class UploadFileController {
      */
     @PostMapping("/uploadDynamicImage")
     @LoginRequired
-    public ResultVO uploadDynamicImage_ADMIN(MultipartFile dynamicImage) throws IOException {
+    public ResultVO uploadDynamicImage_ADMIN(@RequestParam("dynamicImage") MultipartFile dynamicImage) throws IOException {
 
         List<String> dynamicImageList = uploadFileService.uploadDynamicImage(dynamicImage);
 

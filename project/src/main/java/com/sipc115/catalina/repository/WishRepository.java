@@ -32,7 +32,7 @@ public interface WishRepository extends JpaRepository<Wishes, Integer> {
    // List<Wishes> findWishesByWishStatus(@Param("wishStatus") Integer wishStatus);
 
     /**随机查询n条已发布的寄语*/
-    @Query(nativeQuery = true, value = "SELECT * from `wishes` where wish_status= 1 order by rand() LIMIT ?1")
+    @Query(nativeQuery = true, value = "SELECT * from `wishes` where wish_status= 3 order by rand() LIMIT ?1")
     List<Wishes> findWishesByLimit(Integer limit);
 
     /**通过id修改寄语状态*/

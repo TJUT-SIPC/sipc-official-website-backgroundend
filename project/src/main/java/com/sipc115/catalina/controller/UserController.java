@@ -5,13 +5,17 @@ import com.sipc115.catalina.VO.UserVO.UserListInfoVO;
 import com.sipc115.catalina.VO.UserVO.UserListVO;
 import com.sipc115.catalina.annotation.LoginRequired;
 import com.sipc115.catalina.dataobject.Users;
+import com.sipc115.catalina.enums.ResultEnum;
 import com.sipc115.catalina.enums.UserStatusEnum;
+import com.sipc115.catalina.exception.BusinessException;
 import com.sipc115.catalina.service.CheckUserStatusService;
 import com.sipc115.catalina.service.UploadFileService;
 import com.sipc115.catalina.service.UserAndAwardService;
 import com.sipc115.catalina.service.UserService;
 import com.sipc115.catalina.utils.URLUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/userCenter")
 public class UserController {
@@ -143,11 +148,14 @@ public class UserController {
         if(pageSize>100) pageSize=100;
 
         //1.分页查询所有用户
+        Page<Users> userListPage;
         List<Users> userList;
         if(status >= UserStatusEnum.NORMAL.getCode() && status <=UserStatusEnum.ROOT.getCode()){
-            userList = userService.findAllByUserStatus(status, page - 1, pageSize);
+            userListPage = userService.findAllByUserStatus(status, page - 1, pageSize);
+            userList = userListPage.getContent();
         }else{
-            userList = userService.findAll(page - 1, pageSize);
+            userListPage = userService.findAll(page - 1, pageSize);
+            userList = userListPage.getContent();
         }
 
         //2.数据组装
@@ -176,7 +184,7 @@ public class UserController {
         }
 
         userListVO.setUserListInfoVOList(userListInfoVOList);
-        userListVO.setTotal_users(userListInfoVOList.size());
+        userListVO.setTotal_users((int) userListPage.getTotalElements());
 
         /**返回ResultVO*/
         ResultVO resultVO = new ResultVO();
@@ -296,9 +304,10 @@ public class UserController {
      */
     @PostMapping("/modifyUser")
     @LoginRequired
-    public ResultVO addUser_ROOT(Integer id,String name, String password, String student_id, Integer age, String gender, String phone, String email, Integer status, String remark, String head_image) throws IOException {
+    public ResultVO modifyUser_SPECIAL(Integer id, String name, String password, String student_id, Integer age, String gender, String phone, String email, Integer status, String remark, String head_image, HttpServletRequest request) throws IOException {
 
         //1.验证必须参数
+
         boolean rightName = false;
         boolean rightPassword = false;
 
@@ -307,7 +316,7 @@ public class UserController {
 
         if (name!=null && name.matches(nameRegex)) rightName = true;
         if (password!=null && password.matches(passwordRegex)) rightPassword = true;
-        if ( status < UserStatusEnum.NORMAL.getCode() || status > UserStatusEnum.ROOT.getCode()) status = UserStatusEnum.NORMAL.getCode();
+        if (status==null || status < UserStatusEnum.NORMAL.getCode() || status > UserStatusEnum.ROOT.getCode()) status = UserStatusEnum.NORMAL.getCode();
 
         //2.验证不必须参数
         boolean rightStudentId = false;
@@ -326,10 +335,22 @@ public class UserController {
         rightEmail = (email == null) || email.matches(emailRegex);
 
         //3.保存数据
-        if(rightName && rightPassword && rightStudentId && rightAge && rightPhone && rightEmail){
+        if(id!=null && rightName && rightPassword && rightStudentId && rightAge && rightPhone && rightEmail){
 
-
+            //1.获取用户id
             Users user = userService.findOne(id);
+
+            //2.进行身份校验，超级管理员身份以上可以随意修改用户信息
+            if(!checkUserStatusService.isRoot()){
+                if(!request.getSession().getAttribute("userId") .equals(user.getUserId())){
+                    log.error("[修改用户信息]失败,没有权限修改他人信息,session_user_id={},update_user_id={}",request.getSession().getAttribute("userId"),user.getUserId());
+                    return new ResultVO(400,"你没有权限修改其他用户");
+                }
+                if(!status.equals(user.getUserStatus())){
+                    log.error("[修改用户权限]失败,你没有权限修改,username={},status={}",user.getUserName(),status);
+                    return new ResultVO(401,"你没有权限修改用户权限");
+                }
+            }
 
             //若头像更新，删除原有头像图片资源
             if(head_image != null && !head_image.equals(user.getUserHeadImage())){
@@ -355,22 +376,32 @@ public class UserController {
 
         }
         if(rightName == false){
+            log.error("用户名格式错误,username={}",name);
             return new ResultVO(1,"用户名格式错误");
         }
         if(rightPassword == false){
+            log.error("密码格式错误,password={}",password);
             return new ResultVO(2,"密码格式错误");
         }
         if(rightStudentId == false){
+            log.error("学号格式错误,studentId={}",student_id);
             return new ResultVO(3,"学号格式错误");
         }
         if(rightAge == false){
+            log.error("年龄超出范围,age={}",age);
             return new ResultVO(4,"年龄超出范围");
         }
         if(rightPhone == false){
+            log.error("手机号格式错误,phone={}",phone);
             return new ResultVO(5, "手机号码格式错误");
         }
         if(rightEmail == false){
+            log.error("邮箱格式错误,email={}",email);
             return new ResultVO(6,"邮箱格式错误");
+        }
+        if(id == null){
+            log.error("传入的用户id为空,user_id={}",id);
+            return new ResultVO(7,"传入的用户id为空");
         }
 
         return null;
@@ -386,6 +417,11 @@ public class UserController {
     @PostMapping("/delUser")
     @LoginRequired
     public ResultVO delUser_ROOT(Integer id){
+
+        if(id == null){
+            log.error("传入用户id为空,id={}",id);
+            throw new BusinessException(ResultEnum.PARAM_ERROR);
+        }
 
         //1.先删除用户关联的奖项记录
         userAndAwardService.delRelationByUserId(id);

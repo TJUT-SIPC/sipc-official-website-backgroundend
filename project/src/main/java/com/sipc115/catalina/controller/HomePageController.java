@@ -50,9 +50,9 @@ public class HomePageController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/M");
 
         //1.查询所有项目
-        List<Projects> projectList = projectService.findAll(0,1000);
+        List<Projects> projectList = projectService.findAll(0,1000).getContent();
         //2.查询所有奖项
-        List<Awards> awardList = awardService.findAll(0,1000);
+        List<Awards> awardList = awardService.findAll(0,1000).getContent();
 
         //3.数据组装
         ProjectAndAwardListVO projectAndAwardListVO = new ProjectAndAwardListVO();
@@ -81,6 +81,7 @@ public class HomePageController {
 
         /**award_list部分组装*/
         for(Awards award : awardList){
+
             //传入获奖项目id，名称，日期
             AwardListInfoVO awardListInfoVO = new AwardListInfoVO();
             awardListInfoVO.setAwardId(award.getAwardId());
@@ -117,7 +118,7 @@ public class HomePageController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/M/d");
 
         //1.分页查询动态，一页5条
-        List<Dynamics> dynamicList = dynamicService.findAll(page,5);
+        List<Dynamics> dynamicList = dynamicService.findAll(page,5).getContent();
 
         //2.数据组装
 
@@ -163,15 +164,7 @@ public class HomePageController {
     @PostMapping("/sendMessage")
     public ResultVO sendMessage(String email, String nickname, String advice){
 
-        /**验证参数*/
-        boolean rightEmail = false;
-        String emailRegex = "^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,})$";
-
-        if(email.matches(emailRegex)){
-            rightEmail = true;
-        }
-
-        if(rightEmail && nickname!=null && !nickname.trim().isEmpty() && advice!=null && !advice.trim().isEmpty() ) {
+        if(nickname!=null && !nickname.trim().isEmpty() && advice!=null && !advice.trim().isEmpty() ) {
             /**保存建议*/
             MessageBoard message = new MessageBoard();
             message.setBoardEmail(email);
@@ -181,9 +174,7 @@ public class HomePageController {
 
             return new ResultVO(0,"success");
         }
-        if(!rightEmail){
-            return new ResultVO(1,"邮箱格式错误");
-        }
+
         if(nickname==null || nickname.trim().isEmpty()){
             return new ResultVO(2,"名字不能为空");
         }

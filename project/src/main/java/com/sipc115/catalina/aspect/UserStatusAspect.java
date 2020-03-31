@@ -1,5 +1,7 @@
 package com.sipc115.catalina.aspect;
 
+import com.sipc115.catalina.enums.ResultEnum;
+import com.sipc115.catalina.exception.BusinessException;
 import com.sipc115.catalina.service.CheckUserStatusService;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -30,7 +32,7 @@ public class UserStatusAspect {
         if(checkUserStatusService.isAdmin()){
             System.out.println("----------管理员身份检验成功----------");
         }else {
-            throw new Exception("----------权限不足----------");
+            throw new BusinessException(ResultEnum.PERMISSION_DENIED);
         }
     }
 
@@ -39,7 +41,7 @@ public class UserStatusAspect {
         if(checkUserStatusService.isRoot()){
             System.out.println("----------超级管理员身份检验成功----------");
         }else {
-            throw new Exception("----------权限不足----------");
+            throw new BusinessException(ResultEnum.PERMISSION_DENIED);
         }
     }
 

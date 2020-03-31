@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -15,6 +16,7 @@ import java.util.Date;
 @DynamicInsert
 @DynamicUpdate
 public class Users {
+
     /**
      * 用户ID
      */
@@ -23,9 +25,13 @@ public class Users {
     private Integer userId;
 
     /**用户名*/
+    @NotNull(message = "用户名不能为空")
     private String userName;
+
     /**用户密码*/
+    @NotNull(message = "用户密码不能为空")
     private String userPassword;
+
     /**学号*/
     private String userStudentId;
     /**年龄*/
@@ -41,6 +47,8 @@ public class Users {
     /**用户上次登录时间*/
     private Date userLastLogin;
     /**用户权限 0普通用户 1管理员 2超级管理员*/
+
+    @NotNull(message = "用户权限不能为空")
     private Integer userStatus;
     /**备注*/
     private String userRemark;

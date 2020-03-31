@@ -347,13 +347,13 @@ name 必须
 
 参数
 
-| 参数名称      | 是否必须 | 说明                            |
-| ------------- | -------- | ------------------------------- |
-| id            | Y        | 要修改的项目id                  |
-| description   | Y        | 项目描述                        |
-| time          | Y        | 项目时间                        |
-| rawImage      | Y        | 项目原图片URL（相对服务器链接） |
-| compressImage | Y        | 项目压缩图URL（相对服务器链接） |
+| 参数名称         | 是否必须 | 说明                            |
+| ---------------- | -------- | ------------------------------- |
+| id               | Y        | 要修改的项目id                  |
+| description      | Y        | 项目描述                        |
+| time             | Y        | 项目时间                        |
+| rawImageURL      | Y        | 项目原图片URL（相对服务器链接） |
+| compressImageURL | Y        | 项目压缩图URL（相对服务器链接） |
 
 返回
 
@@ -416,11 +416,12 @@ name 必须
 
 参数
 
-| 参数名称    | 是否必须 | 说明               |
-| ----------- | -------- | ------------------ |
-| description | Y        | 项目描述           |
-| time        | N        | 项目时间           |
-| image       | Y        | 项目图片//限制10MB |
+| 参数名称         | 是否必须 | 说明          |
+| ---------------- | -------- | ------------- |
+| description      | Y        | 项目描述      |
+| time             | N        | 项目时间      |
+| rawImageURL      | Y        | 项目原图URL   |
+| compressImageURL | Y        | 项目压缩图URL |
 
 返回
 
@@ -946,6 +947,10 @@ name 必须
 
 [POST]/uploadHeadImage	//上传头像图片接口
 
+参数
+
+headImage 头像图片文件
+
 返回
 
 ~~~ 
@@ -961,6 +966,10 @@ name 必须
 
 [POST]/uploadProjectImage	//上传项目图片接口
 
+参数
+
+projectImage 项目图片文件
+
 返回
 
 ~~~ 
@@ -975,6 +984,10 @@ name 必须
 ~~~
 
 [POST]/uploadDynamicImage	//上传动态图片接口
+
+参数
+
+dynamicImage 动态图片文件
 
 返回
 

@@ -1,9 +1,8 @@
 package com.sipc115.catalina.service;
 
 import com.sipc115.catalina.dataobject.MessageBoard;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public interface MessageBoardService {
@@ -12,7 +11,7 @@ public interface MessageBoardService {
     MessageBoard findOne(Integer messageBoardId);
 
     /**分页查询留言*/
-    List<MessageBoard> findAll(Integer pageNum, Integer pageSize);
+    Page<MessageBoard> findAll(Integer pageNum, Integer pageSize);
 
     /**添加留言*/
     MessageBoard addMessage(MessageBoard message);

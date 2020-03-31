@@ -1,6 +1,7 @@
 package com.sipc115.catalina.dataobject;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.Generated;
 import org.hibernate.annotations.DynamicInsert;
@@ -16,6 +17,7 @@ import java.util.Date;
 @Data
 @DynamicInsert
 @DynamicUpdate
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Wishes {
 
     /**寄语id*/
